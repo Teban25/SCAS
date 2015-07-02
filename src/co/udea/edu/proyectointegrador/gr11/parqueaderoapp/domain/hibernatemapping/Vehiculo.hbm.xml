@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/06/2015 12:55:54 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="parkingudea" name="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Vehiculo" optimistic-lock="version" table="vehiculo">
+    <id name="placa" type="string">
+      <column length="50" name="Placa"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoVehiculo" fetch="join" name="tipoVehiculo">
+      <column name="IdTipoVehiculo" not-null="true"/>
+    </many-to-one>
+    <property name="marca" type="string">
+      <column length="100" name="Marca" not-null="true"/>
+    </property>
+    <property name="color" type="string">
+      <column length="50" name="Color"/>
+    </property>
+    <property name="modelo" type="string">
+      <column length="50" name="Modelo" not-null="true"/>
+    </property>
+    <property name="fechaRegistro" type="timestamp">
+      <column length="19" name="FechaRegistro" not-null="true"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

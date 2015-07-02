@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="parkingudea"/>
+  <table-filter match-name="operario_user"/>
+  <table-filter match-name="ingreso"/>
+  <table-filter match-name="operario"/>
+  <table-filter match-name="tipo_identificacion"/>
+  <table-filter match-name="tipo_vehiculo"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="tipo_operario_user"/>
+  <table-filter match-name="vehiculo"/>
+  <table-filter match-name="tipo_usuario"/>
+  <table-filter match-name="usuario_vehiculo"/>
+</hibernate-reverse-engineering>

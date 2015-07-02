@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/06/2015 12:55:54 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="parkingudea" name="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Usuario" optimistic-lock="version" table="usuario">
+    <id name="identificacion" type="string">
+      <column length="100" name="Identificacion"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoIdentificacion" fetch="join" name="tipoIdentificacion">
+      <column name="IdTipoIdentificacion" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoUsuario" fetch="join" name="tipoUsuario">
+      <column name="IdTipoUsuario" not-null="true"/>
+    </many-to-one>
+    <property name="nombre" type="string">
+      <column length="100" name="Nombre" not-null="true"/>
+    </property>
+    <property name="apellido" type="string">
+      <column length="100" name="Apellido" not-null="true"/>
+    </property>
+    <property name="direccion" type="string">
+      <column length="100" name="Direccion"/>
+    </property>
+    <property name="telefono" type="string">
+      <column length="100" name="Telefono"/>
+    </property>
+    <property name="genero" type="string">
+      <column length="100" name="Genero"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/06/2015 12:55:54 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="parkingudea" name="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.UsuarioVehiculo" optimistic-lock="version" table="usuario_vehiculo">
+    <composite-id class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.UsuarioVehiculoId" name="id">
+      <key-property name="placa" type="string">
+        <column length="50" name="Placa"/>
+      </key-property>
+      <key-property name="usuarioIdentificacion" type="string">
+        <column length="100" name="UsuarioIdentificacion"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Usuario" fetch="join" insert="false" name="usuario" update="false">
+      <column length="100" name="UsuarioIdentificacion" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Vehiculo" fetch="join" insert="false" name="vehiculo" update="false">
+      <column length="50" name="Placa" not-null="true"/>
+    </many-to-one>
+    <property name="activo" type="boolean">
+      <column name="Activo" not-null="true"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>
