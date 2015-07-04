@@ -5,12 +5,8 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.Usu
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.UsuarioVehiculoDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.UsuarioDao;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.UsuarioVehiculoDao;
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.alpr.AlprRecognizer;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Usuario;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.UsuarioVehiculo;
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.AlprResult;
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.Plate;
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.Result;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import java.util.List;
 
