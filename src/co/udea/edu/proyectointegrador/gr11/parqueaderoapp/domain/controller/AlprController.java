@@ -1,6 +1,6 @@
 
 package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller;
-/*
+
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.UsuarioDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.UsuarioVehiculoDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.UsuarioDao;
@@ -8,33 +8,33 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.UsuarioVehic
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.alpr.AlprRecognizer;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Usuario;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.UsuarioVehiculo;
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.AlprResult;
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.Plate;
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.Result;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
+import com.openalpr.jni.AlprPlate;
+import com.openalpr.jni.AlprPlateResult;
+import com.openalpr.jni.AlprResults;
+import java.io.IOException;
 import java.util.List;
-*/
+
 /**
  *
  * @author davide.gomez
  */
 public class AlprController {
-    /*private String placa;
     private final String rutaPlaca;
     AlprRecognizer alprRecognizer;
-    AlprResult alprResult;
+    AlprResults alprResults;
     UsuarioDao usuarioD;
     Usuario usuario;
     UsuarioVehiculoDao usuarioVehiculoDao;
     
     
     public AlprController(String rutaPlaca) {
-        placa=new String();
         this.rutaPlaca=rutaPlaca;
         alprRecognizer=new AlprRecognizer();
     }
     
-    public String recognizePlateFromUser(String idUsuario) throws BussinessException{
+    public String recognizePlateFromUser(String idUsuario) throws BussinessException, PersistentException{
         usuarioD=new UsuarioDaoImplement();
         usuario=usuarioD.getUsuario(idUsuario);
         if(usuario==null){
@@ -47,26 +47,31 @@ public class AlprController {
             throw new BussinessException("El usuario no tiene vehiculos registrados en el sistema");
         }
         
-        alprResult=alprRecognizer.recognize(rutaPlaca);
-        
-        if(alprResult==null){
+        try {
+            alprResults=alprRecognizer.recognizePlate(rutaPlaca);
+        } catch (IOException ex) {
             throw new BussinessException("Hubo un problema interno, por favor, verifique nuevamente o "
                     + "contacte al administrador.");
         }
         
-        if (alprResult.getResults().isEmpty()) {
+        if(alprResults==null){
+            throw new BussinessException("Hubo un problema interno, por favor, verifique nuevamente o "
+                    + "contacte al administrador.");
+        }
+        
+        if (alprResults.getPlates().isEmpty()) {
             throw new BussinessException("No se puede reconocer la placa, intente nuevamente");
         }
-        List<Result> resultadosPlacas=alprResult.getResults();
-        for(UsuarioVehiculo d: vehiculosUsuario){
-          for(Result r: resultadosPlacas){
-              if(d.getId().getPlaca().equals(r.getPlate())){
-                 return placa=r.getPlate();
+        List<AlprPlateResult> resultadosPlacas=alprResults.getPlates();
+        for(UsuarioVehiculo usuarioVehiculo: vehiculosUsuario){
+          for(AlprPlateResult plateResult: resultadosPlacas){
+              if(usuarioVehiculo.getId().getPlaca().equals(plateResult.getBestPlate().getCharacters())){
+                 return plateResult.getBestPlate().getCharacters();
               }
-              List<Plate> placas=r.getCandidates();
-              for (Plate p : placas) {
-                  if (p.getPlate().equals(d.getId().getPlaca())) {
-                     return placa=p.getPlate();
+              List<AlprPlate> placas=plateResult.getTopNPlates();
+              for (AlprPlate p : placas) {
+                  if (p.getCharacters().equals(usuarioVehiculo.getId().getPlaca())) {
+                     return p.getCharacters();
                   }
               }
           }
@@ -75,5 +80,5 @@ public class AlprController {
                 + " por favor, registre el vehiculo del usuario o si esta seguro de "
                 + "tenerlo registrado, posicione su vehiculo correctamente");
     }
-    */
+    
 }
