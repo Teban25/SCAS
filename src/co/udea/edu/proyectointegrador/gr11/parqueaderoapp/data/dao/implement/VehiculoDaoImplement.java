@@ -17,50 +17,56 @@ import org.hibernate.Transaction;
  *
  * @author Teban-Ing
  */
-public class VehiculoDaoImplement implements VehiculoDao{
+public class VehiculoDaoImplement implements VehiculoDao {
 
     Session session = null;
-    boolean bandera=false;
-    private Transaction transaction=null;
+    boolean bandera = false;
+    private Transaction transaction = null;
 
     public VehiculoDaoImplement() {
-        this.session=HibernateUtil.getSessionFactory().getCurrentSession();
+        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
-    
+
     @Override
     public void insertarVehiculo(Vehiculo vehiculo) throws PersistentException {
         //Comienzo la transaccion
-            try{
-                SessionFactory sf=HibernateUtil.getSessionFactory();
-                session=sf.openSession();
-                transaction = session.beginTransaction();
-                session.save("Vehiculo", vehiculo);
-                transaction.commit();
-                session.close();
-            }catch(Exception e){
-                transaction.rollback();
-                System.out.println(e.getMessage());
-                System.out.println(e.getCause());
-                throw new PersistentException("Se genero un problema con el manejo "
-                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
-            }
-    }
-
-    @Override
-    public Vehiculo getVehiculo(String placa) throws PersistentException {
-        Vehiculo nuevoVehi=null;
-        try{
-            SessionFactory sf=HibernateUtil.getSessionFactory();
-            session=sf.openSession();
-            nuevoVehi=(Vehiculo)session.get(Vehiculo.class, placa);
-            session.close();
-        }catch(Exception e){
+        try {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            session = sf.openSession();
+            transaction = session.beginTransaction();
+            session.save("Vehiculo", vehiculo);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public Vehiculo getVehiculo(String placa) throws PersistentException {
+        Vehiculo nuevoVehi = null;
+        try {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            session = sf.openSession();
+            nuevoVehi = (Vehiculo) session.get(Vehiculo.class, placa);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+            throw new PersistentException("Se genero un problema con el manejo "
+                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return nuevoVehi;
     }
-    
+
 }

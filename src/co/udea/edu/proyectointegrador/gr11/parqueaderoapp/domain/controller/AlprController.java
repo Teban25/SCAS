@@ -1,6 +1,6 @@
 
 package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller;
-
+/*
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.UsuarioDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.UsuarioVehiculoDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.UsuarioDao;
@@ -13,13 +13,13 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.P
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.alpr.Result;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import java.util.List;
-
+*/
 /**
  *
  * @author davide.gomez
  */
 public class AlprController {
-    private String placa;
+    /*private String placa;
     private final String rutaPlaca;
     AlprRecognizer alprRecognizer;
     AlprResult alprResult;
@@ -75,5 +75,5 @@ public class AlprController {
                 + " por favor, registre el vehiculo del usuario o si esta seguro de "
                 + "tenerlo registrado, posicione su vehiculo correctamente");
     }
-    
+    */
 }

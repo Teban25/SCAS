@@ -17,50 +17,56 @@ import org.hibernate.Transaction;
  *
  * @author Teban-Ing
  */
-public class UsuarioDaoImplement implements UsuarioDao{
+public class UsuarioDaoImplement implements UsuarioDao {
 
     Session session = null;
-    boolean bandera=false;
-    private Transaction transaction=null;
+    boolean bandera = false;
+    private Transaction transaction = null;
 
     public UsuarioDaoImplement() {
-        this.session=HibernateUtil.getSessionFactory().getCurrentSession();
+        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
-    
+
     @Override
     public void insertarUsuario(Usuario usuario) throws PersistentException {
         //Comienzo la transaccion
-            try{
-                SessionFactory sf=HibernateUtil.getSessionFactory();
-                session=sf.openSession();
-                transaction = session.beginTransaction();
-                session.save("Usuario", usuario);
-                transaction.commit();
-                session.close();
-            }catch(Exception e){
-                transaction.rollback();
-                System.out.println(e.getMessage());
-                System.out.println(e.getCause());
-                throw new PersistentException("Se genero un problema con el manejo "
-                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
-            }
-    }
-
-    @Override
-    public Usuario getUsuario(String id) throws PersistentException {
-        Usuario retornaUsu=null;
-        try{
-            SessionFactory sf=HibernateUtil.getSessionFactory();
-            session=sf.openSession();
-            retornaUsu=(Usuario)session.get(Usuario.class, id);
-            session.close();
-        }catch(Exception e){
+        try {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            session = sf.openSession();
+            transaction = session.beginTransaction();
+            session.save("Usuario", usuario);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public Usuario getUsuario(String id) throws PersistentException {
+        Usuario retornaUsu = null;
+        try {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            session = sf.openSession();
+            retornaUsu = (Usuario) session.get(Usuario.class, id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+            throw new PersistentException("Se genero un problema con el manejo "
+                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return retornaUsu;
     }
-    
+
 }

@@ -36,13 +36,16 @@ public class OperarioUserDaoImplement implements OperarioUserDao {
             transaction = session.beginTransaction();
             session.save("OperarioUser", operarioUser);
             transaction.commit();
-            session.close();
         } catch (Exception e) {
             transaction.rollback();
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: "+e.getMessage());
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
     }
 
@@ -53,12 +56,15 @@ public class OperarioUserDaoImplement implements OperarioUserDao {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
             oper = (OperarioUser) session.get(OperarioUser.class, nombreUsuarioOperario);
-            session.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: "+e.getMessage());
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return oper;
     }

@@ -50,7 +50,7 @@ public class VehiculoController {
         this.tip = tip;
         this.modelo=modelo;
     }
-    
+    /*
     public void registroVehiculo() throws BussinessException{
         if((placa.equals("")) || (marca.equals("")) || (color.equals("")) &
                 (!tipoVehiculo.equals("Seleccionar"))|| (tip.equals(""))){
@@ -91,7 +91,8 @@ public class VehiculoController {
         usuarioVehiculoIngreso.setActivo(true);
         usuarioVehiculoDao.insertarUsuarioVehiculo(usuarioVehiculoIngreso);
     }
-    
+    */
+    /*
     public List<TipoVehiculo> getTiposVehiculos() throws BussinessException{
         List<TipoVehiculo> tipoVehiculos=null;
         tipoVehiculoDao=new TipoVehiculoDaoImplement();
@@ -101,6 +102,6 @@ public class VehiculoController {
                     + " vehiculos, contacte al administrador");
         }
         return tipoVehiculos;
-    }
+    }*/
     
 }

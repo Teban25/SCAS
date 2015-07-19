@@ -58,7 +58,7 @@ public class OperarioController {
             throw new BussinessException("Alguno de los campos está vacío");
         }
     }
-    
+    /*
     public List<TipoOperarioUser> getTiposOperario() throws BussinessException{
         List<TipoOperarioUser> tipoOperario;
         tipoOperarioUserDao=new TipoOperarioUserDaoImplement();
@@ -68,6 +68,6 @@ public class OperarioController {
                     + " Operarios, contacte al administrador");
         }
         return tipoOperario;
-    }
+    }*/
 
 }

@@ -34,11 +34,19 @@ public interface IngresoDao {
     public List<Ingreso> getAllIngresos()throws PersistentException;
     
     /**
+     * Se recupera el registro del ultimo ingreso sin salida
+     * @param identificacion
+     * @param placa
+     * @return
+     * @throws PersistentException
+     */
+    public Ingreso getLastIngreso(String identificacion, String placa)throws PersistentException;
+    /**
      * Obtener los ingreos filtrados por una fecha especifica
      * @param fechaInicial fecha desde donde se van a traer los ingresos
      * @param fechaFinal fecha hasta donde se van a traer los ingresos
      * @return
      * @throws PersistentException
      */
-    public List<Ingreso> getIngresosByDate(Date fechaInicial,Date fechaFinal)throws PersistentException;
+    public List<Ingreso> getIngresosByDate(String fechaInicial,String fechaFinal)throws PersistentException;
 }

@@ -38,13 +38,16 @@ public class OperarioDaoImplement implements OperarioDao {
             transaction = session.beginTransaction();
             session.save("Operario", operario);
             transaction.commit();
-            session.close();
         } catch (Exception e) {
             transaction.rollback();
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
     }
 
@@ -55,12 +58,15 @@ public class OperarioDaoImplement implements OperarioDao {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
             retornaOper = (Operario) session.get(Operario.class, identificacion);
-            session.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: "+e.getMessage());
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return retornaOper;
     }
@@ -70,13 +76,19 @@ public class OperarioDaoImplement implements OperarioDao {
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
+            transaction = session.beginTransaction();
             session.update(operario);
-            session.close();
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: "+e.getMessage());
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
     }
 
@@ -87,17 +99,21 @@ public class OperarioDaoImplement implements OperarioDao {
             if (operario == null) {
                 throw new PersistentException("El usuario que desea eliminar no existe");
             }
-
             SessionFactory sf = HibernateUtil.getSessionFactory();
-
             session = sf.openSession();
+            transaction = session.beginTransaction();
             session.delete(operario);
-            session.close();
+            transaction.commit();
         } catch (PersistentException | HibernateException e) {
+            transaction.rollback();
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: "+e.getMessage());
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
     }
 
@@ -107,15 +123,18 @@ public class OperarioDaoImplement implements OperarioDao {
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
-            Query query = session.createQuery("FROM Operario AS e WHERE e.nombreUsuario= :nombreUsuario");
+            Query query = session.createQuery("FROM Operario AS e WHERE e.operarioUser.nombreUsuarioOperario = :nombreUsuario");
             query.setParameter("nombreUsuario", nombreUsuario);
             retornaOper = (Operario) query.uniqueResult();
-            session.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: "+e.getMessage());
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return retornaOper;
     }

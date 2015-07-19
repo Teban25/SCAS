@@ -41,7 +41,7 @@ public class IngresoController {
 
     public IngresoController() {
     }
-    
+    /*
     public IngresoController(Date fecha, Boolean estado, String placa, String identificacionUsuario, String nombreOperario) {
         this.fecha = fecha;
         this.estado = estado;
@@ -86,5 +86,5 @@ public class IngresoController {
         ingresoNuevo.setId(ingresoId);
         ingresoNuevo.setEstado(estado);
         ingresoDao.insertarIngreso(ingresoNuevo);
-    }
+    }*/
 }
