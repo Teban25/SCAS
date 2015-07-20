@@ -3,7 +3,6 @@ package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos;
 
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Ingreso;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
-import java.util.Date;
 
 import java.util.List;
 

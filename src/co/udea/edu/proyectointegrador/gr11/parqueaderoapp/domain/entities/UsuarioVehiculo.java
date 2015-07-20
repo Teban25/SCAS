@@ -15,7 +15,6 @@ public class UsuarioVehiculo  implements java.io.Serializable {
      private Usuario usuario;
      private Vehiculo vehiculo;
      private boolean activo;
-     private Set ingresos = new HashSet(0);
 
     public UsuarioVehiculo() {
     }
@@ -26,13 +25,6 @@ public class UsuarioVehiculo  implements java.io.Serializable {
         this.usuario = usuario;
         this.vehiculo = vehiculo;
         this.activo = activo;
-    }
-    public UsuarioVehiculo(UsuarioVehiculoId id, Usuario usuario, Vehiculo vehiculo, boolean activo, Set ingresos) {
-       this.id = id;
-       this.usuario = usuario;
-       this.vehiculo = vehiculo;
-       this.activo = activo;
-       this.ingresos = ingresos;
     }
    
     public UsuarioVehiculoId getId() {
@@ -63,17 +55,4 @@ public class UsuarioVehiculo  implements java.io.Serializable {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    public Set getIngresos() {
-        return this.ingresos;
-    }
-    
-    public void setIngresos(Set ingresos) {
-        this.ingresos = ingresos;
-    }
-
-
-
-
-}
-
-
+ }

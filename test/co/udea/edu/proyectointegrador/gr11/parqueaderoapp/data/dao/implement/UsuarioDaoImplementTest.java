@@ -62,6 +62,7 @@ public class UsuarioDaoImplementTest {
     }
   
     //Paso la prueba
+    /*
     @Test
     public void testGetUsuario() throws Exception {
         System.out.println("getUsuario");
@@ -70,6 +71,6 @@ public class UsuarioDaoImplementTest {
         String expResult = "Esteban";
         Usuario result = instance.getUsuario(id);
         assertEquals(expResult, result.getNombre());
-    }
+    }*/
     
 }

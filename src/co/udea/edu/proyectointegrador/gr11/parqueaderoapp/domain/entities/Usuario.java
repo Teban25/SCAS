@@ -19,7 +19,6 @@ public class Usuario  implements java.io.Serializable {
      private String direccion;
      private String telefono;
      private String genero;
-     private Set usuarioVehiculos = new HashSet(0);
 
     public Usuario() {
     }
@@ -31,17 +30,6 @@ public class Usuario  implements java.io.Serializable {
         this.tipoUsuario = tipoUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
-    }
-    public Usuario(String identificacion, TipoIdentificacion tipoIdentificacion, TipoUsuario tipoUsuario, String nombre, String apellido, String direccion, String telefono, String genero, Set usuarioVehiculos) {
-       this.identificacion = identificacion;
-       this.tipoIdentificacion = tipoIdentificacion;
-       this.tipoUsuario = tipoUsuario;
-       this.nombre = nombre;
-       this.apellido = apellido;
-       this.direccion = direccion;
-       this.telefono = telefono;
-       this.genero = genero;
-       this.usuarioVehiculos = usuarioVehiculos;
     }
    
     public String getIdentificacion() {
@@ -96,21 +84,10 @@ public class Usuario  implements java.io.Serializable {
     public String getGenero() {
         return this.genero;
     }
-    
+
     public void setGenero(String genero) {
         this.genero = genero;
     }
-    public Set getUsuarioVehiculos() {
-        return this.usuarioVehiculos;
-    }
-    
-    public void setUsuarioVehiculos(Set usuarioVehiculos) {
-        this.usuarioVehiculos = usuarioVehiculos;
-    }
-
-
-
-
 }
 
 

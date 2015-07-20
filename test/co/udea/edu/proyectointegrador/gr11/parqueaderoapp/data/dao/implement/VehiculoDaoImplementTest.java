@@ -46,8 +46,8 @@ public class VehiculoDaoImplementTest {
         System.out.println("insertarVehiculo");
         TipoVehiculo tipoV=new TipoVehiculo();
         tipoV.setIdTipoVehiculo(0);
-        Vehiculo vehiculo = new Vehiculo("OIT95B",tipoV,"Boxer",
-                "Blanca","2010",new Date(), null);
+        Vehiculo vehiculo = new Vehiculo("LAU47A",tipoV,"YAMAHA DT",
+                "Blanca","2010",new Date());
         VehiculoDaoImplement instance = new VehiculoDaoImplement();
         instance.insertarVehiculo(vehiculo);
     }

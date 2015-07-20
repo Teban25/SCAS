@@ -15,8 +15,6 @@ public class OperarioUser  implements java.io.Serializable {
      private TipoOperarioUser tipoOperarioUser;
      private String password;
      private boolean activo;
-     private Set ingresos = new HashSet(0);
-     private Set operarios = new HashSet(0);
 
     public OperarioUser() {
     }
@@ -26,13 +24,6 @@ public class OperarioUser  implements java.io.Serializable {
         this.nombreUsuarioOperario = nombreUsuarioOperario;
         this.tipoOperarioUser = tipoOperarioUser;
         this.password = password;
-    }
-    public OperarioUser(String nombreUsuarioOperario, TipoOperarioUser tipoOperarioUser, String password, Set ingresos, Set operarios) {
-       this.nombreUsuarioOperario = nombreUsuarioOperario;
-       this.tipoOperarioUser = tipoOperarioUser;
-       this.password = password;
-       this.ingresos = ingresos;
-       this.operarios = operarios;
     }
 
     public OperarioUser(String nombreUsuarioOperario, TipoOperarioUser tipoOperarioUser, String password, boolean activo) {
@@ -73,24 +64,4 @@ public class OperarioUser  implements java.io.Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public Set getIngresos() {
-        return this.ingresos;
-    }
-    
-    public void setIngresos(Set ingresos) {
-        this.ingresos = ingresos;
-    }
-    public Set getOperarios() {
-        return this.operarios;
-    }
-    
-    public void setOperarios(Set operarios) {
-        this.operarios = operarios;
-    }
-
-
-
-
 }
-
-
