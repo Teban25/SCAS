@@ -6,7 +6,10 @@
 package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement;
 
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.EstadisticasDao;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.stadistics.entities.HoraDelDiaEstadistica;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.stadistics.entities.TipoUsuarioEstadistica;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.stadistics.entities.TipoVehiculoEstadistica;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,6 +23,9 @@ import static org.junit.Assert.*;
  * @author ASUS
  */
 public class EstadisticaDaoImplTest {
+    
+    private final SimpleDateFormat dateFormat= new 
+        SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
     
     public EstadisticaDaoImplTest() {
     }
@@ -43,9 +49,13 @@ public class EstadisticaDaoImplTest {
     /**
      * Test of getIngresosByTipoVehiculo method, of class EstadisticaDaoImpl.
      */
-    /*
+    
     @Test
     public void testGetIngresosByTipoVehiculo() throws Exception {
+        EstadisticasDao dao= new EstadisticaDaoImpl();
+        
+        List<TipoVehiculoEstadistica>tipos=dao.getIngresosByTipoVehiculo(dateFormat.parse("2014-07-04 18:14:29.000"),dateFormat.parse("2016-07-04 18:14:29.000"));
+        assertEquals(2, tipos.size());
     }
 
     /**
@@ -55,7 +65,18 @@ public class EstadisticaDaoImplTest {
     public void testGetIngresosByTipoUsuario() throws Exception {
         EstadisticasDao dao= new EstadisticaDaoImpl();
         
-        List<TipoUsuarioEstadistica>tipos=dao.getIngresosByTipoUsuario("2016-07-04 18:14:29.000", "2014-07-04 18:14:29.000");
+        List<TipoUsuarioEstadistica>tipos=dao.getIngresosByTipoUsuario(dateFormat.parse("2014-07-04 18:14:29.000"),dateFormat.parse("2017-07-04 18:14:29.000"));
+        assertEquals(3, tipos.size());
+    }
+
+    /**
+     * Test of getIngresosByHoraDelDia method, of class EstadisticaDaoImpl.
+     */
+    @Test
+    public void testGetIngresosByHoraDelDia() throws Exception {
+                EstadisticasDao dao= new EstadisticaDaoImpl();
+        
+        List<HoraDelDiaEstadistica>tipos=dao.getIngresosByHoraDelDia(dateFormat.parse("2014-07-04 18:14:29.000"),dateFormat.parse("2016-07-04 18:14:29.000"));
         assertEquals(3, tipos.size());
     }
     

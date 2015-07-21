@@ -5,28 +5,25 @@
  */
 package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.stadistics.entities;
 
-import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoVehiculo;
-
 /**
  *
- * @author ASUS
+ * @author juanF
  */
-public class TipoVehiculoEstadistica {
-
-    private  TipoVehiculo tipoVehiculo;
+public class HoraDelDiaEstadistica {
+    private int horaDelDia;
     private long numeroDeIngresos;
 
-    public TipoVehiculoEstadistica(TipoVehiculo tipoVehiculo, long numeroDeIngresos) {
-        this.tipoVehiculo = tipoVehiculo;
+    public HoraDelDiaEstadistica(int horaDelDia, long numeroDeIngresos) {
+        this.horaDelDia = horaDelDia;
         this.numeroDeIngresos = numeroDeIngresos;
     }
 
-    public TipoVehiculo getTipoVehiculo() {
-        return tipoVehiculo;
+    public int getHoraDelDia() {
+        return horaDelDia;
     }
 
-    public void setTipoVehiculo(TipoVehiculo tipoVehiculo) {
-        this.tipoVehiculo = tipoVehiculo;
+    public void setHoraDelDia(int horaDelDia) {
+        this.horaDelDia = horaDelDia;
     }
 
     public long getNumeroDeIngresos() {
@@ -38,5 +35,5 @@ public class TipoVehiculoEstadistica {
     }
     
     
-       
+    
 }

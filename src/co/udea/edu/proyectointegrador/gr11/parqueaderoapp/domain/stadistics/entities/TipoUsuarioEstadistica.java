@@ -15,18 +15,18 @@ public class TipoUsuarioEstadistica {
     
     private TipoUsuario tipoUsuario;
      
-    private int numeroDeIngresos;
+    private long numeroDeIngresos;
 
-    public TipoUsuarioEstadistica(TipoUsuario tipoUsuario, int numeroDeIngresos) {
+    public TipoUsuarioEstadistica(TipoUsuario tipoUsuario, long numeroDeIngresos) {
         this.tipoUsuario = tipoUsuario;
         this.numeroDeIngresos = numeroDeIngresos;
     }
     
-    public int getNumeroDeIngresos() {
+    public long getNumeroDeIngresos() {
         return numeroDeIngresos;
     }
 
-    public void setNumeroDeIngresos(int numeroDeIngresos) {
+    public void setNumeroDeIngresos(long numeroDeIngresos) {
         this.numeroDeIngresos = numeroDeIngresos;
     }
 
