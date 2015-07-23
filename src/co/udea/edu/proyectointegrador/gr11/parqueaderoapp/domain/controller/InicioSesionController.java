@@ -4,6 +4,7 @@ package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.OperarioUserDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.OperarioUserDao;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.OperarioUser;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoOperarioUser;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
 
@@ -22,7 +23,7 @@ public class InicioSesionController {
         this.password=password;
     }
     
-    public int permitirSesion()throws PersistentException, BussinessException{
+    public TipoOperarioUser permitirSesion()throws PersistentException, BussinessException{
         daoPrueba=new OperarioUserDaoImplement();
         operario=daoPrueba.getOperario(usuario);
         if (operario==null) {
@@ -34,10 +35,10 @@ public class InicioSesionController {
         }
         
         if(!operario.isActivo()){
-            throw new BussinessException("EL usuario no se encuentra"
+            throw new BussinessException("El usuario no se encuentra"
                             + " activo en el sistema, contacte a un administrador");
         }
-        return operario.getTipoOperarioUser().getIdTipoOperarioUser();
+        return operario.getTipoOperarioUser();
     }
     
 }

@@ -93,7 +93,6 @@ public class IngresoDaoImplementTest {
             ingreso=new Ingreso(ingresoId,operario, null, null,"Dentro");
             instance.insertarIngreso(ingreso);
         }
-        //instance.actualizarIngreso(ingreso);
     }
     
     //Paso la prueba

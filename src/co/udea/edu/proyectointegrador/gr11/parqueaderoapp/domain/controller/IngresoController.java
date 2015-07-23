@@ -1,4 +1,3 @@
-
 package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller;
 
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.IngresoDaoImplement;
@@ -24,11 +23,7 @@ import java.util.List;
  * @author Teban-Ing
  */
 public class IngresoController {
-    private Date fecha;
-    private Boolean estado;
-    private String placa;
-    private String identificacionUsuario;
-    private String nombreOperario;
+
     private IngresoDao ingresoDao;
     private Ingreso ingresoNuevo;
     private IngresoId ingresoId;
@@ -40,51 +35,50 @@ public class IngresoController {
     private OperarioUser operarioUser;
 
     public IngresoController() {
+        ingresoDao = new IngresoDaoImplement();
     }
-    /*
-    public IngresoController(Date fecha, Boolean estado, String placa, String identificacionUsuario, String nombreOperario) {
-        this.fecha = fecha;
-        this.estado = estado;
-        this.placa = placa;
-        this.identificacionUsuario = identificacionUsuario;
-        this.nombreOperario = nombreOperario;
-    }
-    
-    public List<Ingreso> getAllIngresos(){
-        List<Ingreso>ingresos;
-        ingresoDao=new IngresoDaoImplement();
-        ingresos=ingresoDao.getAllIngresos();
+
+    public List<Ingreso> getAllIngresos() throws PersistentException {
+        List<Ingreso> ingresos;
+        ingresos = ingresoDao.getAllIngresos();
         return ingresos;
     }
-    
-    public void insertarIngreso()throws BussinessException, PersistentException{
-        if((fecha==null) || (estado==null) || placa.equals("") || identificacionUsuario.equals("")
-                || nombreOperario.equals("")){
+
+    public void insertarIngreso(Date fecha, String placa,
+            String identificacionUsuario, String nombreOperario) throws BussinessException,
+            PersistentException {
+        if ((fecha == null) || placa.equals("") || identificacionUsuario.equals("")
+                || nombreOperario.equals("")) {
             throw new BussinessException("Falta algún campo por completar verifique de nuevo");
         }
-        usuarioDao=new UsuarioDaoImplement();
-        user=usuarioDao.getUsuario(identificacionUsuario);
-        if(user==null){
+        usuarioDao = new UsuarioDaoImplement();
+        user = usuarioDao.getUsuario(identificacionUsuario);
+        if (user == null) {
             throw new BussinessException("Imposible crear el registro, el usuario no pertenece "
                     + "al sistema");
         }
-        vehiculoDao=new VehiculoDaoImplement();
-        vehiculo=vehiculoDao.getVehiculo(placa);
-        if(vehiculo==null){
+        vehiculoDao = new VehiculoDaoImplement();
+        vehiculo = vehiculoDao.getVehiculo(placa);
+        if (vehiculo == null) {
             throw new BussinessException("Imposible crear el registro, el vehiculo no se encuentra "
                     + "en el sistema");
         }
-        operarioUserDao=new OperarioUserDaoImplement();
-        operarioUser=operarioUserDao.getOperario(nombreOperario);
-        if (operarioUser==null) {
+        operarioUserDao = new OperarioUserDaoImplement();
+        operarioUser = operarioUserDao.getOperario(nombreOperario);
+        if (operarioUser == null) {
             throw new BussinessException("Imposible crear el registro, el operario no pertenece "
                     + "al sistema");
         }
-        ingresoDao=new IngresoDaoImplement();
-        ingresoId=new IngresoId(fecha, placa, identificacionUsuario);
-        ingresoNuevo=new Ingreso();
-        ingresoNuevo.setId(ingresoId);
-        ingresoNuevo.setEstado(estado);
-        ingresoDao.insertarIngreso(ingresoNuevo);
-    }*/
+        ingresoDao = new IngresoDaoImplement();
+        ingresoNuevo = ingresoDao.getLastIngreso(identificacionUsuario, placa);
+        if (ingresoNuevo.getFechaSalida() == null) {
+            ingresoNuevo.setFechaSalida(fecha);
+            ingresoNuevo.setEstado("Fuera");
+            ingresoDao.actualizarIngreso(ingresoNuevo);
+        }else{
+            ingresoId = new IngresoId(fecha, placa, identificacionUsuario);
+            ingresoNuevo = new Ingreso(ingresoId,operarioUser, null, null,"Dentro");
+            ingresoDao.insertarIngreso(ingresoNuevo);
+        }
+    }
 }

@@ -6,10 +6,13 @@
 package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller;
 
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.OperarioDaoImplement;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.OperarioUserDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement.TipoOperarioUserDaoImplement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.OperarioDao;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.OperarioUserDao;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.TipoOperarioUserDao;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Operario;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.OperarioUser;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoOperarioUser;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
@@ -22,10 +25,14 @@ import java.util.List;
 public class OperarioController {
 
     private OperarioDao operarioDao;
+    private OperarioUserDao operarioUserDao;
     private TipoOperarioUserDao tipoOperarioUserDao;
 
-    public Operario buscarOperario(String cedula) throws BussinessException, PersistentException {
+    public OperarioController() {
         operarioDao = new OperarioDaoImplement();
+    }
+    
+    public Operario buscarOperario(String cedula) throws BussinessException, PersistentException {
         Operario operario = operarioDao.getOperario(cedula);
         if (operario == null) {
             throw new BussinessException("El operario no existe");
@@ -35,18 +42,17 @@ public class OperarioController {
 
     public void insertarOperario(Operario operario) throws BussinessException, PersistentException {
        validarOperario(operario);
-       
        operarioDao.insertarOperario(operario);
     }
     
-    public void eliminarOperario(String cedulaOperario) throws PersistentException{
-        operarioDao= new OperarioDaoImplement();
+    public void eliminarOperario(String cedulaOperario) throws PersistentException, BussinessException{
+        if(cedulaOperario==null || cedulaOperario.equals(""))
+            throw new BussinessException("Debe ingresar una cedula para eliminar un operario");
         operarioDao.eliminarOperario(cedulaOperario);
     }
     
     public void actualizarOperario(Operario operario) throws BussinessException, PersistentException{
         validarOperario(operario);
-        operarioDao= new OperarioDaoImplement();
         operarioDao.modificarOperario(operario);
     }
 
@@ -58,8 +64,15 @@ public class OperarioController {
             throw new BussinessException("Alguno de los campos está vacío");
         }
     }
-    /*
-    public List<TipoOperarioUser> getTiposOperario() throws BussinessException{
+    
+    private void validarOperarioUser(OperarioUser operarioUser) throws BussinessException{
+        if(operarioUser.getNombreUsuarioOperario().equals("") || 
+                operarioUser.getPassword().equals("")){
+            throw new BussinessException("Alguno de los campos está vacío");
+        }
+    }
+    
+    public List<TipoOperarioUser> getTiposOperario() throws BussinessException, PersistentException{
         List<TipoOperarioUser> tipoOperario;
         tipoOperarioUserDao=new TipoOperarioUserDaoImplement();
         tipoOperario=tipoOperarioUserDao.getAllTipoOperario();
@@ -68,6 +81,11 @@ public class OperarioController {
                     + " Operarios, contacte al administrador");
         }
         return tipoOperario;
-    }*/
-
+    }
+    
+    public void insertarOperarioUser(OperarioUser operarioUser) throws BussinessException, PersistentException{
+        validarOperarioUser(operarioUser);
+        operarioUserDao=new OperarioUserDaoImplement();
+        operarioUserDao.insertarOperarioUser(operarioUser);
+    }
 }

@@ -8,6 +8,7 @@ package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.dao.implement;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.OperarioDao;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.hibernateconfig.HibernateUtil;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Operario;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.OperarioUser;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -44,8 +45,8 @@ public class OperarioDaoImplement implements OperarioDao {
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: " + e.getMessage());
-        }finally{
-            if(session!=null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -62,9 +63,9 @@ public class OperarioDaoImplement implements OperarioDao {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
-                    + "de la base de datos, mensaje del sistema: "+e.getMessage());
-        }finally{
-            if(session!=null){
+                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null || session.isOpen()) {
                 session.close();
             }
         }
@@ -84,9 +85,9 @@ public class OperarioDaoImplement implements OperarioDao {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
-                    + "de la base de datos, mensaje del sistema: "+e.getMessage());
-        }finally{
-            if(session!=null){
+                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -94,24 +95,26 @@ public class OperarioDaoImplement implements OperarioDao {
 
     @Override
     public void eliminarOperario(String cedula) throws PersistentException {
+        Operario operario = getOperario(cedula);
+        if (operario == null) {
+            throw new PersistentException("El usuario que desea eliminar no existe");
+        }
         try {
-            Operario operario = getOperario(cedula);
-            if (operario == null) {
-                throw new PersistentException("El usuario que desea eliminar no existe");
-            }
+            OperarioUser operarioUser = operario.getOperarioUser();
+            operarioUser.setActivo(false);
             SessionFactory sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
             transaction = session.beginTransaction();
-            session.delete(operario);
+            session.update(operarioUser);
             transaction.commit();
-        } catch (PersistentException | HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
-                    + "de la base de datos, mensaje del sistema: "+e.getMessage());
-        }finally{
-            if(session!=null){
+                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
@@ -130,9 +133,9 @@ public class OperarioDaoImplement implements OperarioDao {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             throw new PersistentException("Se genero un problema con el manejo "
-                    + "de la base de datos, mensaje del sistema: "+e.getMessage());
-        }finally{
-            if(session!=null){
+                    + "de la base de datos, mensaje del sistema: " + e.getMessage());
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }

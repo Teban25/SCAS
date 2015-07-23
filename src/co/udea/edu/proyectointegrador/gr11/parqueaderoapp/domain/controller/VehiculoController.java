@@ -15,6 +15,7 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Usuari
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.UsuarioVehiculoId;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Vehiculo;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,8 @@ public class VehiculoController {
     public VehiculoController() {
     }
     
-    public VehiculoController(String placa, String marca, String modelo, String color, String tipoVehiculo, String tip) {
+    public VehiculoController(String placa, String marca, String modelo, 
+            String color, String tipoVehiculo, String tip) {
         this.placa = placa;
         this.marca = marca;
         this.color = color;
@@ -50,17 +52,23 @@ public class VehiculoController {
         this.tip = tip;
         this.modelo=modelo;
     }
-    /*
-    public void registroVehiculo() throws BussinessException{
+    
+    public void registroVehiculo() throws BussinessException, PersistentException{
+        if((placa==null) || (marca==null) || (color==null) &
+                (tipoVehiculo==null)|| (modelo==null) || (tip==null)){
+            throw new BussinessException("Falto algún campo por ingresar, "
+                    + "intentelo de nuevo");
+        }
         if((placa.equals("")) || (marca.equals("")) || (color.equals("")) &
-                (!tipoVehiculo.equals("Seleccionar"))|| (tip.equals(""))){
+                (!tipoVehiculo.equals("Seleccionar"))|| (modelo.equals("")) 
+                || (tip.equals(""))){
             throw new BussinessException("Falto algún campo por ingresar, "
                     + "intentelo de nuevo");
         }
         usuarioD=new UsuarioDaoImplement();
         usuario=usuarioD.getUsuario(tip);
         if(usuario==null){
-            throw new BussinessException("El usuario no esta activo en el sistema.");
+            throw new BussinessException("El usuario no esta activo o no existe en el sistema.");
         }
         vehiculoD=new VehiculoDaoImplement();
         vehiculo=vehiculoD.getVehiculo(placa);
@@ -91,9 +99,9 @@ public class VehiculoController {
         usuarioVehiculoIngreso.setActivo(true);
         usuarioVehiculoDao.insertarUsuarioVehiculo(usuarioVehiculoIngreso);
     }
-    */
-    /*
-    public List<TipoVehiculo> getTiposVehiculos() throws BussinessException{
+    
+    
+    public List<TipoVehiculo> getTiposVehiculos() throws BussinessException, PersistentException{
         List<TipoVehiculo> tipoVehiculos=null;
         tipoVehiculoDao=new TipoVehiculoDaoImplement();
         tipoVehiculos=tipoVehiculoDao.getAllTipoVehiculo();
@@ -102,6 +110,6 @@ public class VehiculoController {
                     + " vehiculos, contacte al administrador");
         }
         return tipoVehiculos;
-    }*/
+    }
     
 }
