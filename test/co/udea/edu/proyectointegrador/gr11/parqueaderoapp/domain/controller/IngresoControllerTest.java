@@ -8,6 +8,7 @@ package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Ingreso;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,15 +45,12 @@ public class IngresoControllerTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getAllIngresos method, of class IngresoController.
-     */
     @Test
     public void testGetAllIngresos() {
         try {
             System.out.println("getAllIngresos");
             IngresoController instance = new IngresoController();
-            int expResult = 5;
+            int expResult = 6;
             List<Ingreso> result = instance.getAllIngresos();
             assertEquals(expResult, result.size());
         } catch (PersistentException ex) {
@@ -64,7 +62,6 @@ public class IngresoControllerTest {
     public void testInsertarIngresoUsuarioNoExiste() throws BussinessException, PersistentException {
         System.out.println("insertarIngreso");
         Date fecha = new Date();
-        String estado = "Dentro";
         String placa = "LAU47A";
         String identificacionUsuario = "5040";
         String nombreOperario = "example5";
@@ -115,5 +112,23 @@ public class IngresoControllerTest {
             fail("Hubo un problema de persistencia: " + ex.getMessage());
         }
     }
-
+    
+    @Test
+    public void testGetIngresosByDate(){
+        System.out.println("GetIngresosByDate");
+        Date fechaFinal;
+        fechaFinal = new Date();
+        Date fechaInicial=new Date();
+        List<Ingreso> ingresosFecha=null;
+        IngresoController instance = new IngresoController();
+        try {
+            ingresosFecha=instance.getIngresosByDate(fechaInicial, fechaFinal);
+            assertEquals(0, ingresosFecha.size());
+        } catch (PersistentException ex) {
+            fail("Fallo el proceso: " + ex.getMessage());
+        } catch (BussinessException ex) {
+           fail("Hubo un problema de persistencia: " + ex.getMessage());
+        }
+        
+    }
 }
