@@ -10,6 +10,7 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.hibernateconfig.H
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Operario;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.OperarioUser;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
+import java.util.Arrays;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -37,12 +38,13 @@ public class OperarioDaoImplement implements OperarioDao {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
             transaction = session.beginTransaction();
-            session.save("Operario", operario);
+            session.save(operario.getOperarioUser());
+            session.save(operario);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             System.out.println(e.getMessage());
-            System.out.println(e.getCause());
+            System.out.println(Arrays.toString(e.getStackTrace()));
             throw new PersistentException("Se genero un problema con el manejo "
                     + "de la base de datos, mensaje del sistema: " + e.getMessage());
         } finally {
