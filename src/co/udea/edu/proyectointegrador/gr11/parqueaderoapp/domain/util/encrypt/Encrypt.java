@@ -2,12 +2,8 @@ package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.util.encrypt;
 
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
  *
