@@ -6,6 +6,7 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.Bussi
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,6 +61,11 @@ public class InicioSesion extends javax.swing.JFrame {
                 jTFSesionUsuarioFocusLost(evt);
             }
         });
+        jTFSesionUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTFSesionUsuarioKeyPressed(evt);
+            }
+        });
 
         jPFSesionPassword.setPreferredSize(new java.awt.Dimension(96, 20));
         jPFSesionPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -73,6 +79,11 @@ public class InicioSesion extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jPFSesionPasswordFocusLost(evt);
+            }
+        });
+        jPFSesionPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPFSesionPasswordKeyPressed(evt);
             }
         });
 
@@ -100,11 +111,11 @@ public class InicioSesion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPSesionLayout.createSequentialGroup()
                 .addContainerGap(167, Short.MAX_VALUE)
                 .addGroup(jPSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPFSesionPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPSesionLayout.createSequentialGroup()
-                            .addComponent(jTFSesionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(164, 164, 164)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPSesionLayout.createSequentialGroup()
+                        .addGroup(jPSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPFSesionPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFSesionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(164, 164, 164))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPSesionLayout.createSequentialGroup()
                         .addComponent(jLSesionContrasena)
                         .addGap(237, 237, 237))))
@@ -196,6 +207,10 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_jPFSesionPasswordActionPerformed
 
     private void jBSesionIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSesionIniciarActionPerformed
+        actionIniciarsesion();
+    }//GEN-LAST:event_jBSesionIniciarActionPerformed
+
+    private void actionIniciarsesion() {
         TipoOperarioUser role;
         usuario = jTFSesionUsuario.getText();
         password = String.copyValueOf(jPFSesionPassword.getPassword());
@@ -228,7 +243,7 @@ public class InicioSesion extends javax.swing.JFrame {
                         jPFSesionPassword.requestFocus();
                     } else {
                         if (ex.getMessage().equals("El usuario no se encuentra"
-                            + " activo en el sistema, contacte a un administrador")) {
+                                + " activo en el sistema, contacte a un administrador")) {
                             jTFSesionUsuario.setText("");
                             jPFSesionPassword.setText("");
                             jTFSesionUsuario.requestFocus();
@@ -246,7 +261,21 @@ public class InicioSesion extends javax.swing.JFrame {
                 jPFSesionPassword.requestFocus();
             }
         }
-    }//GEN-LAST:event_jBSesionIniciarActionPerformed
+    }
+
+    private void jTFSesionUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFSesionUsuarioKeyPressed
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            actionIniciarsesion();
+        }
+    }//GEN-LAST:event_jTFSesionUsuarioKeyPressed
+
+    private void jPFSesionPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSesionPasswordKeyPressed
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            actionIniciarsesion();
+        }
+    }//GEN-LAST:event_jPFSesionPasswordKeyPressed
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().

@@ -74,9 +74,9 @@ public class OperarioControllerTest {
             System.out.println("insertarOperario");
             TipoOperarioUser tipoOperarioUser = new TipoOperarioUser();
             tipoOperarioUser.setIdTipoOperarioUser(1);
-            OperarioUser operarioUser = new OperarioUser("example5", tipoOperarioUser, "root", true);
-            Operario operario = new Operario("431225", operarioUser, "Steven",
-                    "Galindo", "Cra 30 A 75", "5720906");
+            OperarioUser operarioUser = new OperarioUser("example4", tipoOperarioUser, "root", true);
+            Operario operario = new Operario("1036630442", operarioUser, "Alejo",
+                    "Velez", "Cra 45 A 10", "5720006");
             OperarioController instance = new OperarioController();
             instance.insertarOperarioUser(operarioUser);
             instance.insertarOperario(operario);
