@@ -47,8 +47,10 @@ public class IngresoController {
     public void insertarIngreso(Date fecha, String placa,
             String identificacionUsuario, String nombreOperario) throws BussinessException,
             PersistentException {
-        if ((fecha == null) || placa.equals("") || identificacionUsuario.equals("")
-                || nombreOperario.equals("")) {
+        if(placa==null || identificacionUsuario==null || (fecha == null) || nombreOperario==null){
+            throw new BussinessException("Falta algún campo por completar verifique de nuevo");
+        }
+        if (placa.equals("") ||(identificacionUsuario.equals("")) || nombreOperario.equals("")) {
             throw new BussinessException("Falta algún campo por completar verifique de nuevo");
         }
         usuarioDao = new UsuarioDaoImplement();
