@@ -238,7 +238,7 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         jLPrincipalVigilanteTituloResultadoP.setText("Placa-Resultado");
 
         jTFPlacaResult.setEditable(false);
-        jTFPlacaResult.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        jTFPlacaResult.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTFPlacaResult.setPreferredSize(new java.awt.Dimension(6, 58));
 
         jLLogoUdeA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoudeaVigilante.png"))); // NOI18N

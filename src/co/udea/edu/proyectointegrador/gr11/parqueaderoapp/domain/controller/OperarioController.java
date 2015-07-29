@@ -57,6 +57,9 @@ public class OperarioController {
     }
 
     private void validarOperario(Operario operario) throws BussinessException {
+        if(operario ==null)
+            throw new BussinessException("Alguno de los campos está vacío");
+        
         if (operario.getApellido().equals("") || operario.getDireccion().equals("")
                 || operario.getNombre().equals("") || operario.getTelefono().equals("")
                 || operario.getOperarioUser().getNombreUsuarioOperario().equals("")
@@ -66,6 +69,8 @@ public class OperarioController {
     }
     
     private void validarOperarioUser(OperarioUser operarioUser) throws BussinessException{
+        if(operarioUser==null)
+           throw new BussinessException("Alguno de los campos está vacío");
         if(operarioUser.getNombreUsuarioOperario().equals("") || 
                 operarioUser.getPassword().equals("")){
             throw new BussinessException("Alguno de los campos está vacío");
