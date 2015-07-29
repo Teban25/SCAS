@@ -2,6 +2,8 @@ package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.presentacion.swing;
 
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller.AlprController;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller.IngresoController;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller.VehiculoController;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoVehiculo;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
 import com.github.sarxos.webcam.Webcam;
@@ -15,11 +17,13 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -43,6 +47,15 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
     private final String mensajeResultadoNegativo = "Denegado";
     IngresoController ingresos;
 
+    //Variables para pestaña de registro de vehiculos
+    private String placa;
+    private String marca;
+    private String color;
+    private String tipoVehiculo;
+    private String tipRegistro;
+    private String modelo;
+    VehiculoController vehiculoController;
+    
     public PrincipalCamVigilante() {
         initComponents();
         operario = InicioSesion.usuario;
@@ -68,6 +81,26 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         panel.setVisible(true);
         panel.setBounds(0, 0, 640, 480);
         jPanelCamara.add(panel);
+        agregarItems(this.jCBPrincipalVigilanteTipoVehiculo);
+    }
+    
+    private void agregarItems(JComboBox caja){
+        vehiculoController=new VehiculoController();
+        try {
+            List<TipoVehiculo> tiposVehiculos=null;
+            try {
+                tiposVehiculos = vehiculoController.getTiposVehiculos();
+            } catch (PersistentException ex) {
+                JOptionPane.showMessageDialog(this,"Ocurrio un error al recuperar"
+                        + " los tipos de vehiculos, mensaje del sistema: "+ex.getMessage(),
+                        "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            for (TipoVehiculo tiposVehiculo : tiposVehiculos) {
+                caja.addItem(tiposVehiculo.getTipoVehiculoDescripcion());
+            }
+        } catch (BussinessException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @Override
@@ -97,6 +130,23 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         jTFPlacaResult = new javax.swing.JTextField();
         jLLogoUdeA = new javax.swing.JLabel();
         jPPrincipalVigilanteRegistroV = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTFPrincipalVigilantePlaca = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTFPrincipalVigilanteMarca = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTFPrincipalVigilanteColor = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTFPrincipalVigilanteModelo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jCBPrincipalVigilanteTipoVehiculo = new javax.swing.JComboBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTFPrincipalVigilanteTipRegistro = new javax.swing.JTextField();
+        jBPrincipalVigilanteRegistrar = new javax.swing.JButton();
+        jBLimpiar = new javax.swing.JButton();
         jMBPrincipalVigilanteArchivo = new javax.swing.JMenuBar();
         jMPrincipalVigilanteMenu = new javax.swing.JMenu();
         jMIPrincipalVigilanteCerrar = new javax.swing.JMenuItem();
@@ -135,6 +185,9 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         jTFTip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTFTipKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFTipKeyTyped(evt);
             }
         });
 
@@ -271,15 +324,176 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
 
         jTPPrincipalVigilante.addTab("Ingreso o salida ", jPPrincipalVigilanteIngreso);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Información del vehiculo");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setText("Placa:");
+
+        jTFPrincipalVigilantePlaca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFPrincipalVigilantePlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTFPrincipalVigilantePlacaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFPrincipalVigilantePlacaKeyReleased(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("Marca:");
+
+        jTFPrincipalVigilanteMarca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFPrincipalVigilanteMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFPrincipalVigilanteMarcaKeyReleased(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setText("Color:");
+
+        jTFPrincipalVigilanteColor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFPrincipalVigilanteColor.setMinimumSize(new java.awt.Dimension(6, 26));
+        jTFPrincipalVigilanteColor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFPrincipalVigilanteColorKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Modelo:");
+
+        jTFPrincipalVigilanteModelo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFPrincipalVigilanteModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFPrincipalVigilanteModeloKeyReleased(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("Tipo de vehiculo:");
+
+        jCBPrincipalVigilanteTipoVehiculo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jCBPrincipalVigilanteTipoVehiculo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setText("Información del vinculado");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setText("TIP:");
+
+        jTFPrincipalVigilanteTipRegistro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFPrincipalVigilanteTipRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFPrincipalVigilanteTipRegistroKeyTyped(evt);
+            }
+        });
+
+        jBPrincipalVigilanteRegistrar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jBPrincipalVigilanteRegistrar.setText("Registrar vehiculo");
+        jBPrincipalVigilanteRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPrincipalVigilanteRegistrarActionPerformed(evt);
+            }
+        });
+
+        jBLimpiar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jBLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/broom.png"))); // NOI18N
+        jBLimpiar.setToolTipText("Buscar un operario por cédula, si no existe, se permitira agregarlo.");
+        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPPrincipalVigilanteRegistroVLayout = new javax.swing.GroupLayout(jPPrincipalVigilanteRegistroV);
         jPPrincipalVigilanteRegistroV.setLayout(jPPrincipalVigilanteRegistroVLayout);
         jPPrincipalVigilanteRegistroVLayout.setHorizontalGroup(
             jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addComponent(jSeparator1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(372, 372, 372))
+            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addGap(378, 378, 378)
+                        .addComponent(jLabel1))
+                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFPrincipalVigilanteTipRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCBPrincipalVigilanteTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFPrincipalVigilanteColor, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFPrincipalVigilantePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTFPrincipalVigilanteMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFPrincipalVigilanteModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addGap(386, 386, 386)
+                        .addComponent(jBPrincipalVigilanteRegistrar)))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
         jPPrincipalVigilanteRegistroVLayout.setVerticalGroup(
             jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
+            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTFPrincipalVigilantePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTFPrincipalVigilanteMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTFPrincipalVigilanteColor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTFPrincipalVigilanteModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jCBPrincipalVigilanteTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTFPrincipalVigilanteTipRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addComponent(jBPrincipalVigilanteRegistrar)
+                .addGap(151, 151, 151))
         );
 
         jTPPrincipalVigilante.addTab("Registro de vehiculos", jPPrincipalVigilanteRegistroV);
@@ -382,6 +596,76 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         actionTipedTIP();
     }//GEN-LAST:event_JBEntradaActionPerformed
 
+    private void jTFPrincipalVigilantePlacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPrincipalVigilantePlacaKeyPressed
+        
+    }//GEN-LAST:event_jTFPrincipalVigilantePlacaKeyPressed
+
+    private void jTFPrincipalVigilantePlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPrincipalVigilantePlacaKeyReleased
+        String textoPlaca=jTFPrincipalVigilantePlaca.getText().toUpperCase();
+        jTFPrincipalVigilantePlaca.setText(textoPlaca);
+    }//GEN-LAST:event_jTFPrincipalVigilantePlacaKeyReleased
+
+    private void jTFPrincipalVigilanteMarcaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPrincipalVigilanteMarcaKeyReleased
+        String textoPlaca=jTFPrincipalVigilanteMarca.getText().toUpperCase();
+        jTFPrincipalVigilanteMarca.setText(textoPlaca);
+    }//GEN-LAST:event_jTFPrincipalVigilanteMarcaKeyReleased
+
+    private void jTFPrincipalVigilanteColorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPrincipalVigilanteColorKeyReleased
+        String textoPlaca=jTFPrincipalVigilanteColor.getText().toUpperCase();
+        jTFPrincipalVigilanteColor.setText(textoPlaca);
+    }//GEN-LAST:event_jTFPrincipalVigilanteColorKeyReleased
+
+    private void jTFPrincipalVigilanteModeloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPrincipalVigilanteModeloKeyReleased
+        String textoPlaca=jTFPrincipalVigilanteModelo.getText().toUpperCase();
+        jTFPrincipalVigilanteModelo.setText(textoPlaca);
+    }//GEN-LAST:event_jTFPrincipalVigilanteModeloKeyReleased
+
+    private void jTFPrincipalVigilanteTipRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPrincipalVigilanteTipRegistroKeyTyped
+        char c=evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTFPrincipalVigilanteTipRegistroKeyTyped
+
+    private void jTFTipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFTipKeyTyped
+        char c=evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTFTipKeyTyped
+
+    private void jBPrincipalVigilanteRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPrincipalVigilanteRegistrarActionPerformed
+        placa=jTFPrincipalVigilantePlaca.getText();
+        marca=jTFPrincipalVigilanteMarca.getText();
+        color=jTFPrincipalVigilanteColor.getText();
+        tipoVehiculo=jCBPrincipalVigilanteTipoVehiculo.getSelectedItem().toString();
+        tip=jTFPrincipalVigilanteTipRegistro.getText();
+        modelo=jTFPrincipalVigilanteModelo.getText();
+        if((!placa.equals("")) & (!marca.equals("")) & (!color.equals("")) &
+                (!tipoVehiculo.equals("Seleccionar"))& (!tip.equals(""))){
+            vehiculoController=new VehiculoController(placa, marca,modelo, color, tipoVehiculo, tip);
+            try {
+                vehiculoController.registroVehiculo();
+                limpiarItems();
+                JOptionPane.showMessageDialog(null, "Vehiculo registrado correctamente"
+                    + " al usuario ingresado", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            } catch (BussinessException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (PersistentException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Falta algún campo por ingresar, "
+                    + "por favor verifique", "Atención!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jBPrincipalVigilanteRegistrarActionPerformed
+
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        limpiarItems();
+    }//GEN-LAST:event_jBLimpiarActionPerformed
+
     private void actionTipedTIP() {
         tip = jTFTip.getText();
         if (!tip.equals("")) {
@@ -408,8 +692,10 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
                 jTFResultado.setText(mensajeResultadoPositivo);
                 ingresos=new IngresoController();
                 ingresos.insertarIngreso(new Date(), resultado, tip, operario);
+                jTFTip.setText("");
             } catch (BussinessException | PersistentException ex) {
                 jTFResultado.setSelectedTextColor(Color.red);
+                jTFResultado.setForeground(Color.red);
                 jTFResultado.setText(mensajeResultadoNegativo);
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -418,7 +704,15 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
                     "Error al intentar verificar", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    private void limpiarItems(){
+        jTFPrincipalVigilantePlaca.setText("");
+        jTFPrincipalVigilanteMarca.setText("");
+        jTFPrincipalVigilanteColor.setText("");
+        jCBPrincipalVigilanteTipoVehiculo.setSelectedIndex(0);
+        jTFPrincipalVigilanteTipRegistro.setText("");
+        jTFPrincipalVigilanteModelo.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -456,12 +750,23 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBEntrada;
+    private javax.swing.JButton jBLimpiar;
+    private javax.swing.JButton jBPrincipalVigilanteRegistrar;
+    private javax.swing.JComboBox jCBPrincipalVigilanteTipoVehiculo;
     private javax.swing.JLabel jLLogoUdeA;
     private javax.swing.JLabel jLPrincipalVigilanteTituloCamara;
     private javax.swing.JLabel jLPrincipalVigilanteTituloFoto;
     private javax.swing.JLabel jLPrincipalVigilanteTituloResultadoE;
     private javax.swing.JLabel jLPrincipalVigilanteTituloResultadoP;
     private javax.swing.JLabel jLPrincipalVigilanteTituloTIP;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMBPrincipalVigilanteArchivo;
     private javax.swing.JMenuItem jMIPrincipalVigilanteAcerca;
     private javax.swing.JMenuItem jMIPrincipalVigilanteAsistencia;
@@ -474,7 +779,13 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
     private javax.swing.JPanel jPPrincipalVigilanteIngreso;
     private javax.swing.JPanel jPPrincipalVigilanteRegistroV;
     private javax.swing.JPanel jPanelCamara;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTFPlacaResult;
+    private javax.swing.JTextField jTFPrincipalVigilanteColor;
+    private javax.swing.JTextField jTFPrincipalVigilanteMarca;
+    private javax.swing.JTextField jTFPrincipalVigilanteModelo;
+    private javax.swing.JTextField jTFPrincipalVigilantePlaca;
+    private javax.swing.JTextField jTFPrincipalVigilanteTipRegistro;
     private javax.swing.JTextField jTFResultado;
     private javax.swing.JTextField jTFTip;
     private javax.swing.JTabbedPane jTPPrincipalVigilante;
