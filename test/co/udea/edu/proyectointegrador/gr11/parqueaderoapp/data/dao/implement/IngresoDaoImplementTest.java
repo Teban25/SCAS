@@ -100,7 +100,7 @@ public class IngresoDaoImplementTest {
     public void testGetIngresosByDate() throws Exception {
         System.out.println("getIngresosByDate");
         IngresoDaoImplement instance = new IngresoDaoImplement();
-        List<Ingreso> result = instance.getIngresosByDate("2015-07-16 10:11:32.0", "2015-07-18 20:20:37.0");
+        List<Ingreso> result = instance.getIngresosByDate(new Date(),new Date());
         for (Ingreso result1 : result) {
             System.out.println(result1.getId().getFechaIngreso());
         }

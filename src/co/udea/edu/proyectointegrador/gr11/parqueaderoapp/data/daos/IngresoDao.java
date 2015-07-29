@@ -3,6 +3,7 @@ package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos;
 
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Ingreso;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
+import java.util.Date;
 
 import java.util.List;
 
@@ -47,5 +48,5 @@ public interface IngresoDao {
      * @return
      * @throws PersistentException
      */
-    public List<Ingreso> getIngresosByDate(String fechaInicial,String fechaFinal)throws PersistentException;
+    public List<Ingreso> getIngresosByDate(Date fechaInicial,Date fechaFinal)throws PersistentException;
 }

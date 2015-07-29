@@ -9,6 +9,7 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.IngresoDao;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.hibernateconfig.HibernateUtil;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Ingreso;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -97,12 +98,12 @@ public class IngresoDaoImplement implements IngresoDao {
     
 
     @Override
-    public List<Ingreso> getIngresosByDate(String fechaInicial, String fechaFinal) throws PersistentException {
+    public List<Ingreso> getIngresosByDate(Date fechaInicial, Date fechaFinal) throws PersistentException {
         List<Ingreso> todosIngresos = null;
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
-            String hql = "from Ingreso u where u.id.fechaIngreso >= :fechaInicial and u.id.fechaIngreso <= :fechaFinal";
+            String hql = "from Ingreso u where u.id.fechaIngreso >= :fechaInicial and u.id.fechaIngreso <= :fechaFinal order by u.id.fechaIngreso desc";
             todosIngresos = session.createQuery(hql)
                     .setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).list();
         } catch (Exception e) {

@@ -14,10 +14,10 @@
         <column length="100" name="UsuarioIdentificacion"/>
       </key-property>
     </composite-id>
-    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.OperarioUser" fetch="join" name="operarioUser">
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.OperarioUser" fetch="join" name="operarioUser" lazy="false">
       <column length="100" name="NombreUsuarioOperario" not-null="true"/>
     </many-to-one>
-    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.UsuarioVehiculo" fetch="select" insert="false" name="usuarioVehiculo" update="false">
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.UsuarioVehiculo" fetch="join" insert="false" name="usuarioVehiculo" update="false" lazy="false">
       <column length="50" name="Placa" not-null="true"/>
       <column length="100" name="UsuarioIdentificacion" not-null="true"/>
     </many-to-one>

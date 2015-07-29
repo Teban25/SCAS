@@ -85,12 +85,11 @@ public class IngresoController {
     }
     
     public List<Ingreso> getIngresosByDate(Date fechaInicial, Date fechaFinal) throws PersistentException, BussinessException{
-        if((fechaInicial==null)|| (fechaInicial.toString().equals("")) ||
-                (fechaFinal==null) || (fechaFinal.toString().equals(""))){
+        if((fechaInicial==null) ||(fechaFinal==null)){
             throw new BussinessException("Falta algún campo por completar verifique de nuevo");
         }
         List<Ingreso> ingresos=null;
-        ingresos=ingresoDao.getIngresosByDate(fechaInicial.toString(), fechaFinal.toString());
+        ingresos=ingresoDao.getIngresosByDate(fechaInicial, fechaFinal);
         return ingresos;
     }
 }

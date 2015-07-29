@@ -11,10 +11,10 @@
         <column length="100" name="UsuarioIdentificacion"/>
       </key-property>
     </composite-id>
-    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Usuario" fetch="join" insert="false" name="usuario" update="false">
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Usuario" fetch="join" lazy="false" insert="false" name="usuario" update="false">
       <column length="100" name="UsuarioIdentificacion" not-null="true"/>
     </many-to-one>
-    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Vehiculo" fetch="join" insert="false" name="vehiculo" update="false">
+    <many-to-one class="co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Vehiculo" fetch="join" insert="false" lazy="false" name="vehiculo" update="false">
       <column length="50" name="Placa" not-null="true"/>
     </many-to-one>
     <property name="activo" type="boolean">
