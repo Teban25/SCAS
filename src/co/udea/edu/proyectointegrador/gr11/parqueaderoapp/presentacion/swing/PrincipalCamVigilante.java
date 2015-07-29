@@ -182,6 +182,12 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         jLPrincipalVigilanteTituloTIP.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLPrincipalVigilanteTituloTIP.setText("TIP");
 
+        jTFTip.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFTip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFTipActionPerformed(evt);
+            }
+        });
         jTFTip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTFTipKeyPressed(evt);
@@ -203,6 +209,7 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         jLPrincipalVigilanteTituloResultadoE.setText("Resultado E/S");
 
         jTFResultado.setEditable(false);
+        jTFResultado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jTFResultado.setPreferredSize(new java.awt.Dimension(6, 28));
         jTFResultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +238,7 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         jLPrincipalVigilanteTituloResultadoP.setText("Placa-Resultado");
 
         jTFPlacaResult.setEditable(false);
+        jTFPlacaResult.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jTFPlacaResult.setPreferredSize(new java.awt.Dimension(6, 58));
 
         jLLogoUdeA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoudeaVigilante.png"))); // NOI18N
@@ -319,7 +327,7 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
                         .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTFResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTFPlacaResult, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTPPrincipalVigilante.addTab("Ingreso o salida ", jPPrincipalVigilanteIngreso);
@@ -665,6 +673,10 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
         limpiarItems();
     }//GEN-LAST:event_jBLimpiarActionPerformed
+
+    private void jTFTipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFTipActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFTipActionPerformed
 
     private void actionTipedTIP() {
         tip = jTFTip.getText();
