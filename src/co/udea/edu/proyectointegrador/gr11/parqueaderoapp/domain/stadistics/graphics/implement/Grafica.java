@@ -17,6 +17,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -47,10 +48,7 @@ public class Grafica implements IGrafica {
     private static final String TITLE_OF_XY_CHART = "Ingresos por horas del dia";
 
     @Override
-    public JFreeChart createPieToUserType(List<TipoUsuarioEstadistica> tipoUsuarios) throws BussinessException {
-        if (tipoUsuarios == null || tipoUsuarios.isEmpty()) {
-            throw new BussinessException("No hay datos para realizar la estadística por tipo de usuario");
-        }
+    public JFreeChart createPieToUserType(List<TipoUsuarioEstadistica> tipoUsuarios) {
         //Se crea el conjunto de datos para el tipo de usuario
         PieDataset dataset = createDataForUserType(tipoUsuarios);
 
@@ -60,7 +58,7 @@ public class Grafica implements IGrafica {
                 true, //Incluir leyenda
                 true,
                 false);
-        final PiePlot piePlot = (PiePlot) pie.getPlot();
+         PiePlot piePlot = (PiePlot) pie.getPlot();
         piePlot.setStartAngle(200);
         piePlot.setDirection(Rotation.CLOCKWISE);
         piePlot.setForegroundAlpha(0.5f);
@@ -69,16 +67,13 @@ public class Grafica implements IGrafica {
     }
 
     @Override
-    public JFreeChart createBarChartToVehicleType(List<TipoVehiculoEstadistica> tipoVehiculos) throws BussinessException {
-        if (tipoVehiculos == null || tipoVehiculos.isEmpty()) {
-            throw new BussinessException("No hay datos para realizar la estadística por tipo de vehiculo");
-        }
+    public JFreeChart createBarChartToVehicleType(List<TipoVehiculoEstadistica> tipoVehiculos)  {
         //Se crea el conjunto de datos para realizar el grafico de barras
 
         DefaultCategoryDataset dataset = createDataForVehicleType(tipoVehiculos);
 
         //Se crea el grafico de barras
-        final JFreeChart chart = ChartFactory.createBarChart3D(
+         JFreeChart chart = ChartFactory.createBarChart3D(
                 TITLE_OF_BAR_CHART, //Titulo del gráfico
                 DOMAIN_AXIS_LABEL, //Nombre del dominio
                 RANGE_AXIS_LABEL, //Nombre del Rango
@@ -91,31 +86,28 @@ public class Grafica implements IGrafica {
         chart.setBackgroundPaint(Color.WHITE);
 
         //Se pintan el fondo del grafico de gris y las lineas de blanco
-        final CategoryPlot categoryPlot = chart.getCategoryPlot();
+         CategoryPlot categoryPlot = chart.getCategoryPlot();
         categoryPlot.setBackgroundPaint(Color.LIGHT_GRAY);
         categoryPlot.setDomainGridlinePaint(Color.WHITE);
         categoryPlot.setRangeGridlinePaint(Color.WHITE);
+        categoryPlot.setNoDataMessage(NO_DATA_TO_DISPLAY);
 
         //Se configura para que solo muestre números enteros
-        final NumberAxis rangeAxis = (NumberAxis) categoryPlot.getRangeAxis();
+         NumberAxis rangeAxis = (NumberAxis) categoryPlot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        final BarRenderer barRenderer = (BarRenderer) categoryPlot.getRenderer();
+         BarRenderer barRenderer = (BarRenderer) categoryPlot.getRenderer();
         barRenderer.setDrawBarOutline(false);
 
         return chart;
     }
 
     @Override
-    public JFreeChart createXYLineChartToHoursOfDay(List<HoraDelDiaEstadistica> horasDelDia) throws BussinessException {
-        if (horasDelDia == null || horasDelDia.isEmpty()) {
-            throw new BussinessException("No hay datos para realizar la estadística por horas del dia");
-        }
-
+    public JFreeChart createXYLineChartToHoursOfDay(List<HoraDelDiaEstadistica> horasDelDia) {
         //Se obtiene el conjunto de datos
         XYDataset dataset = createDataForHoursOfDay(horasDelDia);
 
-        final JFreeChart chart = ChartFactory.createXYLineChart(
+         JFreeChart chart = ChartFactory.createXYLineChart(
                 TITLE_OF_XY_CHART, //Titulo del grafico
                 DOMAIN_AXIS_LABEL_HOUR, //Nombre del Rango
                 RANGE_AXIS_LABEL,//Nombre del dominio
@@ -129,20 +121,20 @@ public class Grafica implements IGrafica {
         chart.setBackgroundPaint(Color.WHITE);
 
         //Se pintan el fondo del grafico de gris y las lineas de blanco
-        final XYPlot plot = chart.getXYPlot();
+         XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
         plot.setDomainGridlinePaint(Color.WHITE);
         plot.setRangeGridlinePaint(Color.WHITE);
         
-        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         plot.setRenderer(renderer);
-
+        plot.setNoDataMessage(NO_DATA_TO_DISPLAY);
         
         //Se configura para que solo muestre números enteros en el rango
-        final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         //Se configura para que solo muestre números enteros en el dominio
-        final NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
+         NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
         domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         return chart;
     }
@@ -156,7 +148,7 @@ public class Grafica implements IGrafica {
     }
 
     private DefaultCategoryDataset createDataForVehicleType(List<TipoVehiculoEstadistica> tipoVehiculos) {
-        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (TipoVehiculoEstadistica tipoVehiculo : tipoVehiculos) {
             dataset.addValue(tipoVehiculo.getNumeroDeIngresos(),
                     UNIQUE_SERIE_TO_VEHICLE,
@@ -166,16 +158,37 @@ public class Grafica implements IGrafica {
     }
 
     private XYDataset createDataForHoursOfDay(List<HoraDelDiaEstadistica> horasDelDia) {
-        final XYSeries series = new XYSeries(NAME_OF_HOUR_SERIE);
+         XYSeries series = new XYSeries(NAME_OF_HOUR_SERIE);
         
         for (HoraDelDiaEstadistica horaDelDia : horasDelDia) {
             series.add(horaDelDia.getHoraDelDia(),horaDelDia.getNumeroDeIngresos());
           
         }
         
-        final XYSeriesCollection dataSet = new XYSeriesCollection(series);
+         XYSeriesCollection dataSet = new XYSeriesCollection(series);
       
         return dataSet;
+    }
+
+    @Override
+    public void updateChartForUserType(JFreeChart userTypeChart, List<TipoUsuarioEstadistica> usuarioEstadisticas) {
+       PieDataset pieDataset= createDataForUserType(usuarioEstadisticas);
+       PiePlot piePlot= (PiePlot) userTypeChart.getPlot();
+       piePlot.setDataset(pieDataset);
+    }
+
+    @Override
+    public void updateChartForVehicleType(JFreeChart vehicleTypeChart, List<TipoVehiculoEstadistica> estadisticasVehiculo) {
+        DefaultCategoryDataset categoryDataset = createDataForVehicleType(estadisticasVehiculo);
+        CategoryPlot categoryPlot= vehicleTypeChart.getCategoryPlot();
+        categoryPlot.setDataset(categoryDataset);
+    }
+
+    @Override
+    public void updateChartForHourOfDay(JFreeChart hourOfDayChart, List<HoraDelDiaEstadistica> horaDelDiaEstadisticas) {
+        XYDataset dataset= createDataForHoursOfDay(horaDelDiaEstadisticas);
+        XYPlot xYPlot = hourOfDayChart.getXYPlot();
+        xYPlot.setDataset(dataset);
     }
 
 }

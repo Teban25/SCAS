@@ -43,4 +43,26 @@ public interface IGrafica {
      * @throws BussinessException 
      */
     public JFreeChart createXYLineChartToHoursOfDay(List<HoraDelDiaEstadistica> tipoUsuarios)throws BussinessException;
+    
+    /**
+     * Actualiza un gráfico de tipo de usuario con los nuevos datos que se le pasen por parámetro
+     * @param userTypeChart
+     * @param usuarioEstadisticas 
+     */
+    public void updateChartForUserType(JFreeChart userTypeChart, List<TipoUsuarioEstadistica> usuarioEstadisticas);
+    
+    /**
+     * Actualiza un gráfico de tipo de vehículo con los nuevos datos que se le pasen por parámetro
+     * @param vehicleTypeChart
+     * @param estadisticasVehiculo 
+     */
+    
+    public void updateChartForVehicleType(JFreeChart vehicleTypeChart, List<TipoVehiculoEstadistica> estadisticasVehiculo);
+    
+    /**
+     * Actualiza un gráfico horas del dia con los nuevos datos que se le pasen por parámetro
+     * @param hourOfDayChart
+     * @param horaDelDiaEstadisticas 
+     */
+    public void updateChartForHourOfDay(JFreeChart hourOfDayChart, List<HoraDelDiaEstadistica> horaDelDiaEstadisticas);
 }

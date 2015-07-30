@@ -1,5 +1,8 @@
 package co.udea.edu.proyectointegrador.gr11.parqueaderoapp.presentacion.swing;
 
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.data.daos.EstadisticasDao;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller.EstadisticaController;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller.GraficasController;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller.IngresoController;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.controller.OperarioController;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Ingreso;
@@ -8,17 +11,27 @@ import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.Operar
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.entities.TipoOperarioUser;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.BussinessException;
 import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.exception.PersistentException;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.stadistics.entities.HoraDelDiaEstadistica;
+import co.udea.edu.proyectointegrador.gr11.parqueaderoapp.domain.stadistics.graphics.implement.Grafica;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYDataset;
 
 /**
  *
@@ -35,7 +48,16 @@ public class PrincipalAdmin extends javax.swing.JFrame {
      * Controlador para los ingresos.
      */
     private final IngresoController ingresoController;
+    
+    /**
+     * Controlador para las estadísticas.
+     */
+    
+    private final GraficasController graficasController;
 
+    /**
+     * Los ingresos para las estadísticas.
+     */
     private List<Ingreso> ingresos;
 
     /**
@@ -65,16 +87,44 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
     private List<TipoOperarioUser> tiposOperario;
 
+    /**
+     * Variables para los graficos de las estadisticas
+     */
+    private JFreeChart chartTipoVehiculo;
+    private JFreeChart chartTipoUsuario;
+    private JFreeChart chartHorasDelDia;
+
     public PrincipalAdmin() {
-        initComponents();
+        
         operarioController = new OperarioController();
         ingresoController = new IngresoController();
+        graficasController= new GraficasController();
+        crearGraficos(new Date(), new Date());
+        initComponents();
+        this.setLocationRelativeTo(null);
+        panelHoras.setPreferredSize(new Dimension(50, 50));
+        panelHoras.setMaximumSize(new Dimension(50, 50));
+        panelTipoUsuario.setPreferredSize(new Dimension(228, 211));
+        panelTipoVehiculo.setPreferredSize(new Dimension(228, 211));
+
         operario = null;
         esNuevoOperario = false;
         coindiceContrasena = false;
         agregarItems(jcTipoUsuarioOperario);
         jcTipoUsuarioOperario.setEditable(false);
         jbOperacion.setVisible(false);
+    }
+
+    private void crearGraficos(Date fechaInicial,Date FechaFinal) {
+        try {
+            
+            chartHorasDelDia = graficasController.getChartToHourOfDay(fechaInicial, FechaFinal);
+            
+            chartTipoUsuario = graficasController.getChartToTypeUser(fechaInicial, FechaFinal);
+            chartTipoVehiculo = graficasController.getChartToTypeVehicle(fechaInicial, FechaFinal);
+        } catch (BussinessException ex) {
+            Logger.getLogger(PrincipalAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -281,9 +331,9 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         String[][] datosTabla = new String[ingresos.size()][tablaIngresos.getColumnCount()];
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
-        DefaultTableModel tableModel=(DefaultTableModel) tablaIngresos.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) tablaIngresos.getModel();
         tableModel.getDataVector().clear();
-            
+
         for (int i = 0; i < ingresos.size(); i++) {
             Ingreso ingreso = ingresos.get(i);
             datosTabla[i][0] = ingreso.getId().getUsuarioIdentificacion();
@@ -305,7 +355,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             tableModel.addRow(datosTabla[i]);
             revalidate();
         }
-        
 
     }
 
@@ -354,12 +403,21 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         panelIngresos = new javax.swing.JScrollPane();
         tablaIngresos = new javax.swing.JTable();
+        panelEstadistica = new javax.swing.JPanel();
+        panelFiltrosEstadisticas = new javax.swing.JPanel();
+        jBBuscarEstadisticas = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        seleccionadorFechaFinalEstadistica = new datechooser.beans.DateChooserCombo();
+        seleccionadorFechaInicialEstadistica = new datechooser.beans.DateChooserCombo();
+        panelTipoUsuario = new ChartPanel(this.chartTipoUsuario);
+        panelTipoVehiculo = new ChartPanel(this.chartTipoVehiculo);
+        panelHoras = new ChartPanel(this.chartHorasDelDia);
         jMBPrincipalAdminArchivo = new javax.swing.JMenuBar();
         jMPrincipalAdminMenu = new javax.swing.JMenu();
         jMIPrincipalAdminCerrar = new javax.swing.JMenuItem();
         jMIPrincipalAdminSalir = new javax.swing.JMenuItem();
         jMPrincipalAdminAyuda = new javax.swing.JMenu();
-        jMIPrincipalAdminAsistencia = new javax.swing.JMenuItem();
         jMIPrincipalAdminAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -596,7 +654,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTPPrincipalAdmin.addTab("Gestión de operarios", jPPrincipalAdminOperarios);
@@ -632,15 +690,15 @@ public class PrincipalAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(seleccionadorFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(seleccionadorFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBBuscarIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBLimpiarIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(50, 50, 50))
         );
 
         panelFiltrosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel11});
@@ -648,30 +706,26 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         panelFiltrosLayout.setVerticalGroup(
             panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFiltrosLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosLayout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFiltrosLayout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelFiltrosLayout.createSequentialGroup()
-                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelFiltrosLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jBLimpiarIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelFiltrosLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jBBuscarIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(40, Short.MAX_VALUE))
-                    .addGroup(panelFiltrosLayout.createSequentialGroup()
-                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFiltrosLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(seleccionadorFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(seleccionadorFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(40, 40, 40)
+                        .addComponent(seleccionadorFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBLimpiarIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seleccionadorFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBBuscarIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
         );
+
+        panelFiltrosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel10, jLabel11});
 
         tablaIngresos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -726,7 +780,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
                 .addGroup(jPanelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelIngresos, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelFiltros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 565, Short.MAX_VALUE))
+                    .addComponent(panelFiltros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelEstadisticaLayout.setVerticalGroup(
@@ -736,11 +790,131 @@ public class PrincipalAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelIngresos, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addComponent(panelIngresos, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTPPrincipalAdmin.addTab("Busqueda de Ingresos", jPanelEstadistica);
+
+        jBBuscarEstadisticas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jBBuscarEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jBBuscarEstadisticas.setToolTipText("Buscar un operario por cédula, si no existe, se permitira agregarlo.");
+        jBBuscarEstadisticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarEstadisticasActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Fecha Inicial");
+
+        jLabel13.setText("Fecha Final");
+
+        javax.swing.GroupLayout panelFiltrosEstadisticasLayout = new javax.swing.GroupLayout(panelFiltrosEstadisticas);
+        panelFiltrosEstadisticas.setLayout(panelFiltrosEstadisticasLayout);
+        panelFiltrosEstadisticasLayout.setHorizontalGroup(
+            panelFiltrosEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosEstadisticasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seleccionadorFechaInicialEstadistica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(seleccionadorFechaFinalEstadistica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBBuscarEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85))
+        );
+        panelFiltrosEstadisticasLayout.setVerticalGroup(
+            panelFiltrosEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFiltrosEstadisticasLayout.createSequentialGroup()
+                .addGroup(panelFiltrosEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFiltrosEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFiltrosEstadisticasLayout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelFiltrosEstadisticasLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(seleccionadorFechaInicialEstadistica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelFiltrosEstadisticasLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(panelFiltrosEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBBuscarEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(seleccionadorFechaFinalEstadistica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelTipoUsuarioLayout = new javax.swing.GroupLayout(panelTipoUsuario);
+        panelTipoUsuario.setLayout(panelTipoUsuarioLayout);
+        panelTipoUsuarioLayout.setHorizontalGroup(
+            panelTipoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 228, Short.MAX_VALUE)
+        );
+        panelTipoUsuarioLayout.setVerticalGroup(
+            panelTipoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 211, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelTipoVehiculoLayout = new javax.swing.GroupLayout(panelTipoVehiculo);
+        panelTipoVehiculo.setLayout(panelTipoVehiculoLayout);
+        panelTipoVehiculoLayout.setHorizontalGroup(
+            panelTipoVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 228, Short.MAX_VALUE)
+        );
+        panelTipoVehiculoLayout.setVerticalGroup(
+            panelTipoVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 211, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelHorasLayout = new javax.swing.GroupLayout(panelHoras);
+        panelHoras.setLayout(panelHorasLayout);
+        panelHorasLayout.setHorizontalGroup(
+            panelHorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelHorasLayout.setVerticalGroup(
+            panelHorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 108, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelEstadisticaLayout = new javax.swing.GroupLayout(panelEstadistica);
+        panelEstadistica.setLayout(panelEstadisticaLayout);
+        panelEstadisticaLayout.setHorizontalGroup(
+            panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelHoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelEstadisticaLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(panelTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(panelTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelFiltrosEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 569, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        panelEstadisticaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {panelTipoUsuario, panelTipoVehiculo});
+
+        panelEstadisticaLayout.setVerticalGroup(
+            panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadisticaLayout.createSequentialGroup()
+                .addComponent(panelFiltrosEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelHoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelEstadisticaLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {panelTipoUsuario, panelTipoVehiculo});
+
+        jTPPrincipalAdmin.addTab("Estadisticas de Ingresos", panelEstadistica);
 
         jMPrincipalAdminMenu.setText("Archivo");
 
@@ -766,15 +940,14 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         jMPrincipalAdminAyuda.setText("Ayuda");
 
-        jMIPrincipalAdminAsistencia.setText("Asistencia y documentación");
-        jMIPrincipalAdminAsistencia.addActionListener(new java.awt.event.ActionListener() {
+        jMIPrincipalAdminAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jMIPrincipalAdminAcerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoudea16x16.png"))); // NOI18N
+        jMIPrincipalAdminAcerca.setText("Acerca de...");
+        jMIPrincipalAdminAcerca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIPrincipalAdminAsistenciaActionPerformed(evt);
+                jMIPrincipalAdminAcercaActionPerformed(evt);
             }
         });
-        jMPrincipalAdminAyuda.add(jMIPrincipalAdminAsistencia);
-
-        jMIPrincipalAdminAcerca.setText("Acerca de...");
         jMPrincipalAdminAyuda.add(jMIPrincipalAdminAcerca);
 
         jMBPrincipalAdminArchivo.add(jMPrincipalAdminAyuda);
@@ -789,7 +962,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPPrincipalAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTPPrincipalAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
         );
 
         pack();
@@ -804,10 +977,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private void jMIPrincipalAdminSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIPrincipalAdminSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMIPrincipalAdminSalirActionPerformed
-
-    private void jMIPrincipalAdminAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIPrincipalAdminAsistenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMIPrincipalAdminAsistenciaActionPerformed
 
     private void jBBuscarOperarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarOperarioActionPerformed
         cedula = jtCedulaOperario.getText();
@@ -833,15 +1002,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         vaciarCampos();
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
-    private void jBBuscarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarIngresosActionPerformed
-        
-        mostrarIngresos();
-    }//GEN-LAST:event_jBBuscarIngresosActionPerformed
-
-    private void jBLimpiarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarIngresosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBLimpiarIngresosActionPerformed
-
     private void jbOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOperacionActionPerformed
         String funcion = esNuevoOperario ? "agregar" : "actualizar";
 
@@ -851,22 +1011,22 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         try {
 
             if (JOptionPane.showConfirmDialog(this, "Está seguro de "
-                + funcion + " el usuario?", "Advertencia",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE) != JOptionPane.YES_OPTION) {
-            return;
-        }
-        if (esNuevoOperario) {
-            operarioController.insertarOperario(operario);
-            JOptionPane.showMessageDialog(this, "El operario se agegó correctamente",
-                "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            operarioController.actualizarOperario(operario);
-            JOptionPane.showMessageDialog(this, "El operario se actualizó correctamente",
-                "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-        }
+                    + funcion + " el usuario?", "Advertencia",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) != JOptionPane.YES_OPTION) {
+                return;
+            }
+            if (esNuevoOperario) {
+                operarioController.insertarOperario(operario);
+                JOptionPane.showMessageDialog(this, "El operario se agegó correctamente",
+                        "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                operarioController.actualizarOperario(operario);
+                JOptionPane.showMessageDialog(this, "El operario se actualizó correctamente",
+                        "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            }
 
-        vaciarCampos();
+            vaciarCampos();
         } catch (BussinessException | PersistentException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Mensaje", JOptionPane.WARNING_MESSAGE);
         }
@@ -879,6 +1039,33 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private void jPContrasenaOperarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPContrasenaOperarioKeyReleased
         validarCoincidencia();
     }//GEN-LAST:event_jPContrasenaOperarioKeyReleased
+
+    private void jBLimpiarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarIngresosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBLimpiarIngresosActionPerformed
+
+    private void jBBuscarIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarIngresosActionPerformed
+
+        mostrarIngresos();
+    }//GEN-LAST:event_jBBuscarIngresosActionPerformed
+
+    private void jBBuscarEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarEstadisticasActionPerformed
+        try {
+            Date fechaFinal=seleccionadorFechaFinalEstadistica.getSelectedDate().getTime();
+            Date fechaInicial= seleccionadorFechaInicialEstadistica.getSelectedDate().getTime();
+
+           graficasController.updateAllCharts(chartTipoVehiculo, chartTipoUsuario, chartHorasDelDia, fechaInicial, fechaFinal);
+        } catch (BussinessException ex) {
+           JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jBBuscarEstadisticasActionPerformed
+
+    private void jMIPrincipalAdminAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIPrincipalAdminAcercaActionPerformed
+       About nuevo = new About(this, true);
+       nuevo.setLocationRelativeTo(this);
+        nuevo.setVisible(true);
+    }//GEN-LAST:event_jMIPrincipalAdminAcercaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -916,6 +1103,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBBuscarEstadisticas;
     private javax.swing.JButton jBBuscarIngresos;
     private javax.swing.JButton jBBuscarOperario;
     private javax.swing.JButton jBLimpiar;
@@ -923,6 +1111,8 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -933,7 +1123,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMBPrincipalAdminArchivo;
     private javax.swing.JMenuItem jMIPrincipalAdminAcerca;
-    private javax.swing.JMenuItem jMIPrincipalAdminAsistencia;
     private javax.swing.JMenuItem jMIPrincipalAdminCerrar;
     private javax.swing.JMenuItem jMIPrincipalAdminSalir;
     private javax.swing.JMenu jMPrincipalAdminAyuda;
@@ -959,10 +1148,17 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jtNombresOperario;
     private javax.swing.JTextField jtTelefonoOperario;
     private javax.swing.JPanel panelDatos;
+    private javax.swing.JPanel panelEstadistica;
     private javax.swing.JPanel panelFiltros;
+    private javax.swing.JPanel panelFiltrosEstadisticas;
+    private javax.swing.JPanel panelHoras;
     private javax.swing.JScrollPane panelIngresos;
+    private javax.swing.JPanel panelTipoUsuario;
+    private javax.swing.JPanel panelTipoVehiculo;
     private datechooser.beans.DateChooserCombo seleccionadorFechaFinal;
+    private datechooser.beans.DateChooserCombo seleccionadorFechaFinalEstadistica;
     private datechooser.beans.DateChooserCombo seleccionadorFechaInicial;
+    private datechooser.beans.DateChooserCombo seleccionadorFechaInicialEstadistica;
     private javax.swing.JTable tablaIngresos;
     // End of variables declaration//GEN-END:variables
 

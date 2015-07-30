@@ -49,5 +49,14 @@ public class GraficasController {
         JFreeChart chart = grafica.createXYLineChartToHoursOfDay(horasDelDia);
         return chart;
     }
+    
+    public void updateAllCharts(JFreeChart vehicleChart, JFreeChart userChart, JFreeChart hourChart, Date startDate, Date endDate) throws BussinessException{
+        List<HoraDelDiaEstadistica> horaDelDiaEstadisticas= estadisticaController.getEstadisticasByHoraDelDia(startDate, endDate);
+        List<TipoUsuarioEstadistica> tipoUsuarioEstadisticas= estadisticaController.getEstadisticasByTipoUsuario(startDate, endDate);
+        List<TipoVehiculoEstadistica>tipoVehiculoEstadisticas=estadisticaController.getEstadisticasByTipoVehiculo(startDate, endDate);
+        grafica.updateChartForHourOfDay(hourChart, horaDelDiaEstadisticas);
+        grafica.updateChartForUserType(userChart, tipoUsuarioEstadisticas);
+        grafica.updateChartForVehicleType(vehicleChart, tipoVehiculoEstadisticas);
+    }
 
 }

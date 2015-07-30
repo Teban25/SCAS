@@ -73,7 +73,7 @@ public class IngresoController {
         }
         ingresoDao = new IngresoDaoImplement();
         ingresoNuevo = ingresoDao.getLastIngreso(identificacionUsuario, placa);
-        if (ingresoNuevo.getFechaSalida() == null) {
+        if (ingresoNuevo!=null&&ingresoNuevo.getFechaSalida() == null) {
             ingresoNuevo.setFechaSalida(fecha);
             ingresoNuevo.setEstado("Fuera");
             ingresoDao.actualizarIngreso(ingresoNuevo);
