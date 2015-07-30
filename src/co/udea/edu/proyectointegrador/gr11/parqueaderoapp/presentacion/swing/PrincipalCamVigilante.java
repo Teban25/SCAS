@@ -147,12 +147,12 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         jTFPrincipalVigilanteTipRegistro = new javax.swing.JTextField();
         jBPrincipalVigilanteRegistrar = new javax.swing.JButton();
         jBLimpiar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         jMBPrincipalVigilanteArchivo = new javax.swing.JMenuBar();
         jMPrincipalVigilanteMenu = new javax.swing.JMenu();
         jMIPrincipalVigilanteCerrar = new javax.swing.JMenuItem();
         jMIPrincipalVigilanteSalir = new javax.swing.JMenuItem();
         jMPrincipalVigilanteAyuda = new javax.swing.JMenu();
-        jMIPrincipalVigilanteAsistencia = new javax.swing.JMenuItem();
         jMIPrincipalVigilanteAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -210,7 +210,6 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
 
         jTFResultado.setEditable(false);
         jTFResultado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jTFResultado.setPreferredSize(new java.awt.Dimension(6, 28));
         jTFResultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTFResultadoActionPerformed(evt);
@@ -252,60 +251,56 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
                     .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelCamara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTFResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTFPlacaResult, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                        .addGap(117, 117, 117)
-                                        .addComponent(jLPrincipalVigilanteTituloFoto))
-                                    .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(jLPrincipalVigilanteTituloResultadoE)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jLPrincipalVigilanteTituloResultadoP))
+                                .addGap(117, 117, 117)
+                                .addComponent(jLPrincipalVigilanteTituloFoto))
+                            .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
                                     .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
+                                            .addGap(83, 83, 83)
+                                            .addComponent(jLPrincipalVigilanteTituloTIP)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                         .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
                                             .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                                    .addGap(83, 83, 83)
-                                                    .addComponent(jLPrincipalVigilanteTituloTIP)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                                 .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                                    .addGap(18, 18, 18)
-                                                    .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                                            .addComponent(JBEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addGap(27, 27, 27))
-                                                        .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                                            .addComponent(jTFTip, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addGap(10, 10, 10)))))
-                                            .addComponent(jLLogoUdeA, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jPFotoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(1, 1, 1))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                                    .addComponent(JBEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(27, 27, 27))
+                                                .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
+                                                    .addComponent(jTFTip, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(10, 10, 10)))))
+                                    .addComponent(jLLogoUdeA, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jPFotoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(1, 1, 1)))
+                            .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLPrincipalVigilanteTituloResultadoE)
+                                .addGap(53, 53, 53)
+                                .addComponent(jLPrincipalVigilanteTituloResultadoP))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFResultado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTFPlacaResult, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
                         .addGap(243, 243, 243)
                         .addComponent(jLPrincipalVigilanteTituloCamara)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPPrincipalVigilanteIngresoLayout.setVerticalGroup(
             jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
                         .addComponent(jLPrincipalVigilanteTituloCamara)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelCamara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPPrincipalVigilanteIngresoLayout.createSequentialGroup()
                                 .addComponent(jLPrincipalVigilanteTituloTIP)
@@ -319,26 +314,33 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
                         .addComponent(jLPrincipalVigilanteTituloFoto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPFotoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
+                        .addGap(18, 18, 18)
                         .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLPrincipalVigilanteTituloResultadoE)
                             .addComponent(jLPrincipalVigilanteTituloResultadoP))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFPlacaResult, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPPrincipalVigilanteIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTFPlacaResult, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jTPPrincipalVigilante.addTab("Ingreso o salida ", jPPrincipalVigilanteIngreso);
+        jTPPrincipalVigilante.addTab("Ingreso o salida ", new javax.swing.ImageIcon(getClass().getResource("/images/Sign In.png")), jPPrincipalVigilanteIngreso); // NOI18N
+
+        jPPrincipalVigilanteRegistroV.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Información del vehiculo");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Placa:");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Placa: ");
 
-        jTFPrincipalVigilantePlaca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTFPrincipalVigilantePlaca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTFPrincipalVigilantePlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFPrincipalVigilantePlacaActionPerformed(evt);
+            }
+        });
         jTFPrincipalVigilantePlaca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTFPrincipalVigilantePlacaKeyPressed(evt);
@@ -348,7 +350,7 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Marca:");
 
         jTFPrincipalVigilanteMarca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -358,8 +360,8 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("Color:");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Color: ");
 
         jTFPrincipalVigilanteColor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTFPrincipalVigilanteColor.setMinimumSize(new java.awt.Dimension(6, 26));
@@ -369,7 +371,7 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Modelo:");
 
         jTFPrincipalVigilanteModelo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -379,16 +381,16 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Tipo de vehiculo:");
 
-        jCBPrincipalVigilanteTipoVehiculo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jCBPrincipalVigilanteTipoVehiculo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCBPrincipalVigilanteTipoVehiculo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Información del vinculado");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("TIP:");
 
         jTFPrincipalVigilanteTipRegistro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -398,8 +400,9 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
             }
         });
 
-        jBPrincipalVigilanteRegistrar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jBPrincipalVigilanteRegistrar.setText("Registrar vehiculo");
+        jBPrincipalVigilanteRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBPrincipalVigilanteRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-1281.png"))); // NOI18N
+        jBPrincipalVigilanteRegistrar.setText("Registrar ");
         jBPrincipalVigilanteRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPrincipalVigilanteRegistrarActionPerformed(evt);
@@ -415,96 +418,121 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoudea.png"))); // NOI18N
+
         javax.swing.GroupLayout jPPrincipalVigilanteRegistroVLayout = new javax.swing.GroupLayout(jPPrincipalVigilanteRegistroV);
         jPPrincipalVigilanteRegistroV.setLayout(jPPrincipalVigilanteRegistroVLayout);
         jPPrincipalVigilanteRegistroVLayout.setHorizontalGroup(
             jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(372, 372, 372))
             .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
                 .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                        .addGap(378, 378, 378)
-                        .addComponent(jLabel1))
-                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFPrincipalVigilanteTipRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCBPrincipalVigilanteTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addGap(376, 376, 376)
+                                .addComponent(jLabel7))
+                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTFPrincipalVigilanteMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTFPrincipalVigilantePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(50, 50, 50)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTFPrincipalVigilanteModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTFPrincipalVigilanteTipRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(98, 98, 98))
+                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addGap(252, 252, 252)
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFPrincipalVigilanteColor, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFPrincipalVigilantePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTFPrincipalVigilanteMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTFPrincipalVigilanteColor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFPrincipalVigilanteModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                        .addGap(386, 386, 386)
-                        .addComponent(jBPrincipalVigilanteRegistrar)))
-                .addContainerGap(382, Short.MAX_VALUE))
+                                .addGap(378, 378, 378)
+                                .addComponent(jLabel1)))
+                        .addGap(157, 372, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBPrincipalVigilanteRegistrar)
+                .addGap(414, 414, 414))
+            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCBPrincipalVigilanteTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPPrincipalVigilanteRegistroVLayout.setVerticalGroup(
             jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
-                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTFPrincipalVigilantePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTFPrincipalVigilanteMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTFPrincipalVigilanteColor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTFPrincipalVigilanteModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel1)
+                        .addGap(50, 50, 50)
+                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                        .addContainerGap(33, Short.MAX_VALUE)
+                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jTFPrincipalVigilantePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jTFPrincipalVigilanteModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3))
+                                    .addGroup(jPPrincipalVigilanteRegistroVLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jTFPrincipalVigilanteMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jTFPrincipalVigilanteColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(27, 27, 27)))
                         .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jCBPrincipalVigilanteTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jCBPrincipalVigilanteTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(42, 42, 42)
                 .addGroup(jPPrincipalVigilanteRegistroVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTFPrincipalVigilanteTipRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
+                    .addComponent(jTFPrincipalVigilanteTipRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(83, 83, 83)
                 .addComponent(jBPrincipalVigilanteRegistrar)
-                .addGap(151, 151, 151))
+                .addGap(111, 111, 111))
         );
 
-        jTPPrincipalVigilante.addTab("Registro de vehiculos", jPPrincipalVigilanteRegistroV);
+        jTPPrincipalVigilante.addTab("Registro de vehiculos", new javax.swing.ImageIcon(getClass().getResource("/images/car-add-icon.png")), jPPrincipalVigilanteRegistroV); // NOI18N
 
         javax.swing.GroupLayout jPPrincipalVigilanteLayout = new javax.swing.GroupLayout(jPPrincipalVigilante);
         jPPrincipalVigilante.setLayout(jPPrincipalVigilanteLayout);
@@ -543,10 +571,7 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
 
         jMPrincipalVigilanteAyuda.setText("Ayuda");
 
-        jMIPrincipalVigilanteAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoDocumento.png"))); // NOI18N
-        jMIPrincipalVigilanteAsistencia.setText("Asistencia y documentación");
-        jMPrincipalVigilanteAyuda.add(jMIPrincipalVigilanteAsistencia);
-
+        jMIPrincipalVigilanteAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         jMIPrincipalVigilanteAcerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoudea16x16.png"))); // NOI18N
         jMIPrincipalVigilanteAcerca.setText("Acerca de...");
         jMIPrincipalVigilanteAcerca.addActionListener(new java.awt.event.ActionListener() {
@@ -678,6 +703,10 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFTipActionPerformed
 
+    private void jTFPrincipalVigilantePlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFPrincipalVigilantePlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFPrincipalVigilantePlacaActionPerformed
+
     private void actionTipedTIP() {
         tip = jTFTip.getText();
         if (!tip.equals("")) {
@@ -779,9 +808,9 @@ public class PrincipalCamVigilante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMBPrincipalVigilanteArchivo;
     private javax.swing.JMenuItem jMIPrincipalVigilanteAcerca;
-    private javax.swing.JMenuItem jMIPrincipalVigilanteAsistencia;
     private javax.swing.JMenuItem jMIPrincipalVigilanteCerrar;
     private javax.swing.JMenuItem jMIPrincipalVigilanteSalir;
     private javax.swing.JMenu jMPrincipalVigilanteAyuda;
